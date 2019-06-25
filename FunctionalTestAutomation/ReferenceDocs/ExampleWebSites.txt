@@ -1,0 +1,14 @@
+for basics - http://book.theautomatedtester.co.uk/chapter1
+
+for advaced - http://automationpractice.com
+
+for more elements and side menus - 
+https://s1.demo.opensourcecms.com/wordpress/wp-login.php
+Username: opensourcecms
+Password: opensourcecms
+
+each and every legacy element are defined here - http://the-internet.herokuapp.com/ (This is good to test code first)
+
+
+We may get calendar once after logging to it - http://newtours.demoaut.com/mercuryregister.php
+
