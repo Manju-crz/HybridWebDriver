@@ -8,10 +8,10 @@ package com.mks.connectors;
  */
 public class Constants {
 
-	private static int elementsFinderTimeout;
-	private static int pageloadTimeout;
+	private static long elementsFinderTimeout;
+	private static long pageloadTimeout;
 
-	public static int getElementsFinderTimeout() {
+	public static long getElementsFinderTimeout() {
 		return elementsFinderTimeout;
 	}
 
@@ -19,7 +19,7 @@ public class Constants {
 		Constants.elementsFinderTimeout = elementsFinderTimeout;
 	}
 
-	public static int getPageloadTimeout() {
+	public static long getPageloadTimeout() {
 		return pageloadTimeout;
 	}
 

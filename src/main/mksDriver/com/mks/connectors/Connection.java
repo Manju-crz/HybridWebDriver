@@ -22,6 +22,14 @@ public class Connection {
 	private static Browser browser = null;
 	private static WebDriver driver = null;
 
+	public Connection() {
+		
+	}
+	
+	public Connection(Browser browser) {
+		
+	}
+	
 	public enum Browser {
 		FIREFOX, CHROME, SAFARI, IE, EDGE
 	};
@@ -37,14 +45,14 @@ public class Connection {
 			driver = Browsers.getFirefoxBrowser(getDriverPath("geckodriver"));
 			break;
 		case SAFARI:
+			throw new UnsupportedOperationException(String.format("Unsupported Browser %s", browser));
 		case EDGE:
+			throw new UnsupportedOperationException(String.format("Unsupported Browser %s", browser));
 		case IE:
 			throw new UnsupportedOperationException(String.format("Unsupported Browser %s", browser));
 		default:
 			throw new UnsupportedOperationException(String.format("Unsupported Browser %s", browser));
 		}
-		driver.manage().timeouts().implicitlyWait(Constants.getElementsFinderTimeout(), TimeUnit.SECONDS);
-		driver.manage().timeouts().pageLoadTimeout(Constants.getPageloadTimeout(), TimeUnit.SECONDS);
 		return driver;
 	}
 
