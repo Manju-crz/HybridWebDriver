@@ -36,7 +36,7 @@ public class Connection {
 
 	private static final Logger logger = LogManager.getLogger(Connection.class);
 
-	public static WebDriver launchBrower() {
+	public WebDriver launchBrower() {
 		switch (browser) {
 		case CHROME:
 			driver = Browsers.getChromeBrowser(getDriverPath("chromedriver"));
@@ -91,7 +91,7 @@ public class Connection {
 		return file.toString();
 	}
 
-	public static void setBrowser(String browserName) {
+	/*public static void setBrowser(String browserName) {
 		if (browserName.equalsIgnoreCase("firefox") || browserName.equalsIgnoreCase("ff")
 				|| browserName.equalsIgnoreCase("Mozilla"))
 			browser = Browser.FIREFOX;
@@ -103,9 +103,9 @@ public class Connection {
 
 	public static void setDriver(WebDriver currentDriver) {
 		driver = currentDriver;
-	}
+	}*/
 
-	public static void closeAll() {
+	public void closeAll() {
 		if (driver != null)
 			driver.quit();
 		driver = null;
