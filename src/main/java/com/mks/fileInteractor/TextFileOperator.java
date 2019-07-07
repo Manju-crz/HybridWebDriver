@@ -1,5 +1,5 @@
 package com.mks.fileInteractor;
 
-public class TextCoOrdinator {
+public class TextFileOperator {
 
 }
