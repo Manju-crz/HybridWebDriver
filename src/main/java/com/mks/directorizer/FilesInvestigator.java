@@ -1,9 +1,14 @@
 package com.mks.directorizer;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
+import java.nio.file.InvalidPathException;
 import java.util.List;
 
 import org.openqa.selenium.InvalidArgumentException;
+
+import com.mks.utilizer.MksArray;
 
 public class FilesInvestigator {
 	
@@ -36,6 +41,26 @@ public class FilesInvestigator {
 		if(!fileName.contains("."))
 			throw new InvalidArgumentException(String.format("Given path and file %s is not having a file format defined.", filePath));
 	}
+
+	private void checkFolderPathFormat(String folderPath) {
+		String[] directories = null;
+		
+		String fileName = null;
+		if(folderPath.contains("/")) {
+			directories = folderPath.split("/");
+			fileName = directories[directories.length-1];
+		}
+		else if(folderPath.contains("\\")) {
+			int chLastIndx = folderPath.lastIndexOf("\\");
+			fileName = folderPath.substring(chLastIndx + 1, folderPath.length());
+		}
+		else
+			throw new InvalidArgumentException(String.format("Given folder path %s is not a valid folder path.", folderPath));
+		if(fileName.startsWith("."))
+			fileName = fileName.substring(1);
+		if(fileName.contains("."))
+			throw new InvalidArgumentException(String.format("Given folder path %s is not a valid folder path.", folderPath));
+	}
 	
 	
 	public boolean findFile(String filePath) {
@@ -49,9 +74,25 @@ public class FilesInvestigator {
 		return true;*/
 	}
 	
-	public String findFile(String folderPath, String fileName) {
+	public boolean findFile(String folderPath, String fileName) {
 		
-		return null;
+		checkFolderPathFormat(folderPath);
+		File f = new File(folderPath);
+		if(!f.exists())
+			throw new InvalidPathException(folderPath, String.format("Given input folder path %s is not existing in the system.", folderPath));
+		String[] files = f.list();
+		
+		MksArray array = new MksArray();
+		if(array.isStringExistsInArray(fileName, files))
+			return true;
+		else if(array.isStringExistsInArrayIgnoringCase(fileName, files)) {
+			System.out.println(String.format("One of the file found in the given folder %s with the file name %s, but file name character cases not matching!\nAll found files are : %s", folderPath, fileName, array.getArrayListFromArray(files).toString()));
+			return false;
+		}
+		else {
+			System.out.println(String.format("There is no file found with the file name %s in the given folder %s, the found file names are : %s", fileName, folderPath, array.getArrayListFromArray(files).toString()));
+			return false;
+		}
 	}
 	
 	public void getFilePath(String ancestorFolderPath) {
