@@ -95,8 +95,11 @@ public class FilesInvestigator {
 		}
 	}
 	
-	public void getFilePath(String ancestorFolderPath) {
+	public String getFilePath(String ancestorFolderPath, String fileName) {
 		
+		
+		
+		return null;
 	}
 	
 	public void renameFile(String filePath) {

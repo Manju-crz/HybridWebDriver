@@ -10,6 +10,8 @@ public class MyTest {
 	@Test
 	public void fileTester() {
 		
+
+		System.out.println("====== " + System.getProperty("user.dir"));
 		
 		
 		
