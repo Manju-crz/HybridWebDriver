@@ -55,6 +55,10 @@ public class Connection {
 		}
 		return driver;
 	}
+	
+	
+	
+	
 
 	private static String getDriverPath(String driverName) {
 		String driverFolder;
@@ -104,7 +108,13 @@ public class Connection {
 	public static void setDriver(WebDriver currentDriver) {
 		driver = currentDriver;
 	}*/
-
+	
+	private void checkDriverExistance(String driverFile) {
+		
+	}
+	
+	
+	
 	public void closeAll() {
 		if (driver != null)
 			driver.quit();
