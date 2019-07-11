@@ -3,6 +3,7 @@ package com.mks.connectors;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.Arrays;
@@ -16,6 +17,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
+import com.mks.directorizer.FilesInvestigator;
+import com.mks.directorizer.FoldersInvestigator;
+import com.mks.directorizer.SystemDirectoryPath;
+
 
 public class Connection {
 
@@ -27,7 +32,7 @@ public class Connection {
 	}
 	
 	public Connection(Browser browser) {
-		
+		this.browser = browser;
 	}
 	
 	public enum Browser {
@@ -36,7 +41,7 @@ public class Connection {
 
 	private static final Logger logger = LogManager.getLogger(Connection.class);
 
-	public WebDriver launchBrower() {
+	public WebDriver launchBrowser() {
 		switch (browser) {
 		case CHROME:
 			driver = Browsers.getChromeBrowser(getDriverPath("chromedriver"));
@@ -59,42 +64,31 @@ public class Connection {
 	
 	
 	
-
+	
 	private static String getDriverPath(String driverName) {
 		String driverFolder;
+		String driversFolderName = "drivers";
+		
 		if (SystemUtils.IS_OS_MAC) {
-			driverFolder = File.separator + "servers" + File.separator;
+			driverFolder = File.separator + driversFolderName + File.separator;
 		} else if (SystemUtils.IS_OS_LINUX) {
-			driverFolder = File.separator + "servers" + File.separator;
+			driverFolder = File.separator + driversFolderName + File.separator;
 		} else if (SystemUtils.IS_OS_WINDOWS) {
-			driverFolder = File.separator + "servers" + File.separator;
+			driverFolder = File.separator + driversFolderName + File.separator;
 			driverName = driverName + ".exe";
 		} else {
 			throw new UnsupportedOperationException("Unsupported Operating System");
 		}
-
-		String filePath = System.getProperty("user.dir") + driverFolder + driverName;
-		logger.trace("File Path:" + filePath);
-		File file = new File(filePath);
-		try {
-			if (!SystemUtils.IS_OS_WINDOWS) {
-				Set<PosixFilePermission> perms = new HashSet<PosixFilePermission>();
-				List<PosixFilePermission> driverPerms = Arrays.asList(PosixFilePermission.GROUP_EXECUTE,
-						PosixFilePermission.GROUP_READ, PosixFilePermission.OTHERS_EXECUTE,
-						PosixFilePermission.OTHERS_READ, PosixFilePermission.OWNER_EXECUTE,
-						PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE);
-				perms.addAll(driverPerms);
-				Files.setPosixFilePermissions(Paths.get(filePath), perms);
-			}
-		} catch (UnsupportedOperationException e) {
-			logger.warn("Driver could not be set as an executable");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		logger.info("Using driver at:" + file.toString());
-		return file.toString();
+		String projFolder = new SystemDirectoryPath().getCurrentProjectFolder();
+		String filePath = projFolder + driverFolder + driverName;
+		
+		FilesInvestigator fi = new FilesInvestigator();
+		if(!fi.findFile(filePath))
+			throw new InvalidPathException("", String.format("There should be a folder %s inside the project folder %s, which should contain the %s executable file inorder to execute scripts.", driversFolderName, projFolder, driverName));
+		
+		return filePath;
 	}
-
+	
 	/*public static void setBrowser(String browserName) {
 		if (browserName.equalsIgnoreCase("firefox") || browserName.equalsIgnoreCase("ff")
 				|| browserName.equalsIgnoreCase("Mozilla"))
@@ -103,19 +97,14 @@ public class Connection {
 			browser = Browser.CHROME;
 		else
 			browser = Browser.CHROME;
-	}
+	}*/
 
 	public static void setDriver(WebDriver currentDriver) {
 		driver = currentDriver;
-	}*/
-	
-	private void checkDriverExistance(String driverFile) {
-		
 	}
 	
 	
-	
-	public void closeAll() {
+	public static void closeDriverBrowsers() {
 		if (driver != null)
 			driver.quit();
 		driver = null;

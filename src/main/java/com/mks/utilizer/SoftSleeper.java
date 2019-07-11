@@ -53,14 +53,9 @@ public class SoftSleeper {
 		sleep((int) milliseconds, Unit.MILLISECONDS, reason, Level.TRACE);
 	}
 
-	@Deprecated
 	public static void seconds(int seconds) {
-		try {
-			logger.trace(String.format("Sleeping %d seconds", seconds));
-			Thread.sleep(Unit.SECONDS.factor);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		logger.trace(String.format("Sleeping %d seconds", seconds));
+		sleep(seconds, Unit.SECONDS, String.format(" %s seconds", seconds), Level.TRACE);
 	}
 
 	/**

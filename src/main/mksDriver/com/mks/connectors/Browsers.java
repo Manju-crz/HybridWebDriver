@@ -21,7 +21,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
  * @author Manjunath KS
  *
  */
-public class Browsers {
+class Browsers {
 
 	public static WebDriver getChromeBrowser(String driverPath) {
 		WebDriver webDriverObject = null;
@@ -64,7 +64,8 @@ public class Browsers {
 		capabilities.setCapability(FirefoxDriver.PROFILE, createFirefoxProfile());
 		capabilities.setCapability("marionette", false);
 		capabilities.setCapability("acceptInsecureCerts", true);
-		webDriverObject = new FirefoxDriver(capabilities);
+		//webDriverObject = new FirefoxDriver(capabilities);
+		webDriverObject = new FirefoxDriver();
 		webDriverObject.manage().window().maximize();
 		Capabilities caps = ((RemoteWebDriver) webDriverObject).getCapabilities();
 		return webDriverObject;
