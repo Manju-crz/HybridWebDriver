@@ -11,4 +11,3 @@ each and every legacy element are defined here - http://the-internet.herokuapp.c
 
 
 We may get calendar once after logging to it - http://newtours.demoaut.com/mercuryregister.php
-

@@ -29,7 +29,6 @@ public class SoftSleeper {
 
 	private static final Logger logger = LogManager.getLogger(SoftSleeper.class);
 
-	@Deprecated
 	public static void milliseconds(long milliseconds) {
 		try {
 			logger.trace(String.format("Sleeping %d milliseconds", milliseconds));

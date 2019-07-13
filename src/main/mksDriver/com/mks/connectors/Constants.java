@@ -7,10 +7,15 @@ package com.mks.connectors;
  *
  */
 public class Constants {
-
+	
+	public static final long DELAY_KEY_PRESS_MS = 250;
+	public static final long DELAY_SCROLL_MS = 250;
+	
+	
+	
 	private static long elementsFinderTimeout;
 	private static long pageloadTimeout;
-
+	
 	public static long getElementsFinderTimeout() {
 		return elementsFinderTimeout;
 	}

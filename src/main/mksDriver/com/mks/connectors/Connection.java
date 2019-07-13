@@ -28,7 +28,7 @@ public class Connection {
 	private static WebDriver driver = null;
 
 	public Connection() {
-		
+		this.browser = Browser.CHROME;
 	}
 	
 	public Connection(Browser browser) {
@@ -61,7 +61,11 @@ public class Connection {
 		return driver;
 	}
 	
-	
+	public WebDriver launchBrowser(String URL) {
+		launchBrowser();
+		driver.get(URL);
+		return driver;
+	}
 	
 	
 	
