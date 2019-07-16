@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebElement;
 
+import com.mks.exceptions.NoElementFoundException;
 import com.mks.seluty.Finder;
 import com.mks.seluty.WdOperators;
 
@@ -118,14 +119,13 @@ public class MksButton {
 	 *            The button text of the UI should exactly match - case sensitive.
 	 * @return If found and clicked, then returns true. Else returns false.
 	 */
-	public boolean click(String buttonText) {
+	public void click(String buttonText) {
 
 		button = getButton(buttonText);
 		if (button == null)
-			return false;
+			throw new NoElementFoundException(getExceptionMsg(buttonText));
 		else {
 			button.click();
-			return true;
 		}
 
 	}
@@ -145,13 +145,12 @@ public class MksButton {
 	 * @return If found with given occurrence and clicked, then returns true. Else
 	 *         returns false.
 	 */
-	public boolean click(String buttonText, int ofButtonTextOccurrence) {
+	public void click(String buttonText, int ofButtonTextOccurrence) {
 		button = getButton(buttonText, ofButtonTextOccurrence);
 		if (button == null)
-			return false;
+			throw new NoElementFoundException(getExceptionMsg(buttonText, ofButtonTextOccurrence));
 		else {
 			button.click();
-			return true;
 		}
 	}
 
@@ -165,14 +164,13 @@ public class MksButton {
 	 * @return If found and mouse left clicked, then returns true. Else returns
 	 *         false.
 	 */
-	public boolean leftClick(String buttonText) {
+	public void leftClick(String buttonText) {
 
 		button = getButton(buttonText);
 		if (button == null)
-			return false;
+			throw new NoElementFoundException(getExceptionMsg(buttonText));
 		else {
 			WdOperators.clickOnLocation(button, 0, 0);
-			return true;
 		}
 	}
 
@@ -191,14 +189,13 @@ public class MksButton {
 	 * @return If found with given occurrence and mouse left clicked, then returns
 	 *         true. Else returns false.
 	 */
-	public boolean leftClick(String buttonText, int ofButtonTextOccurrence) {
+	public void leftClick(String buttonText, int ofButtonTextOccurrence) {
 
 		button = getButton(buttonText, ofButtonTextOccurrence);
 		if (button == null)
-			return false;
+			throw new NoElementFoundException(getExceptionMsg(buttonText, ofButtonTextOccurrence));
 		else {
 			WdOperators.clickOnLocation(button, 0, 0);
-			return true;
 		}
 	}
 	
@@ -212,14 +209,13 @@ public class MksButton {
 	 * @return If found and JS clicked, then returns true. Else returns
 	 *         false.
 	 */
-	public boolean jsClick(String buttonText) {
+	public void jsClick(String buttonText) {
 
 		button = getButton(buttonText);
 		if (button == null)
-			return false;
+			throw new NoElementFoundException(getExceptionMsg(buttonText));
 		else {
 			WdOperators.jsClick(button);
-			return true;
 		}
 	}
 
@@ -238,15 +234,26 @@ public class MksButton {
 	 * @return If found with given occurrence and JS clicked, then returns
 	 *         true. Else returns false.
 	 */
-	public boolean jsClick(String buttonText, int ofButtonTextOccurrence) {
+	public void jsClick(String buttonText, int ofButtonTextOccurrence) {
 
 		button = getButton(buttonText, ofButtonTextOccurrence);
 		if (button == null)
-			return false;
+			throw new NoElementFoundException(getExceptionMsg(buttonText, ofButtonTextOccurrence));
 		else {
 			WdOperators.jsClick(button);
-			return true;
 		}
 	}
+	
+
+	private String getExceptionMsg(String buttonTxt) {
+		return String.format("There is no button element found for the button locator %s with the button text %s",
+				buttonLocator.toString(), buttonTxt);
+	}
+	
+	private String getExceptionMsg(String buttonTxt, int textOccurrence) {
+		return String.format("%s, at the occcurrence of text at position %s",
+				getExceptionMsg(buttonTxt), textOccurrence);
+	}
+	
 	
 }

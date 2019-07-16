@@ -1,4 +1,4 @@
-1. Write a code to identify the file inside folders and subfolders.
-2. Utilize file identification code to find chromedriver and other drivers in the Connection class.
-3. Inorder to code better with isDriverExistance code in the Connection class, require Underworld constructorPath method code. Apparantly isDriverExistance code can be used in the browser launch code method of the Connection class.
-
+DONE: 1. Write a code to identify the file inside folders and subfolders.
+DONE: 2. Utilize file identification code to find chromedriver and other drivers in the Connection class.
+DONE: 3. Inorder to code better with isDriverExistance code in the Connection class, require Underworld constructorPath method code. Apparantly isDriverExistance code can be used in the browser launch code method of the Connection class.
+4. Required MksAdvCheckbox all methods tested properly with flipkart.com. Especially click(String.. texts) method required to test when we are passing only one text. Wehther it returns false or null webelement. Its good if returs false.

@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebElement;
 
+import com.mks.exceptions.NoElementFoundException;
 import com.mks.seluty.Finder;
 import com.mks.seluty.WdOperators;
 
@@ -118,14 +119,13 @@ public class MksLink {
 	 *            The link text of the UI should exactly match - case sensitive.
 	 * @return If found and clicked, then returns true. Else returns false.
 	 */
-	public boolean click(String linkText) {
+	public void click(String linkText) {
 
 		link = getLink(linkText);
 		if (link == null)
-			return false;
+			throw new NoElementFoundException(getExceptionMsg(linkText));
 		else {
 			link.click();
-			return true;
 		}
 
 	}
@@ -145,13 +145,12 @@ public class MksLink {
 	 * @return If found with given occurrence and clicked, then returns true. Else
 	 *         returns false.
 	 */
-	public boolean click(String linkText, int ofLinkTextOccurrence) {
+	public void click(String linkText, int ofLinkTextOccurrence) {
 		link = getLink(linkText, ofLinkTextOccurrence);
 		if (link == null)
-			return false;
+			throw new NoElementFoundException(getExceptionMsg(linkText, ofLinkTextOccurrence));
 		else {
 			link.click();
-			return true;
 		}
 	}
 
@@ -165,14 +164,13 @@ public class MksLink {
 	 * @return If found and mouse left clicked, then returns true. Else returns
 	 *         false.
 	 */
-	public boolean leftClick(String linkText) {
+	public void leftClick(String linkText) {
 
 		link = getLink(linkText);
 		if (link == null)
-			return false;
+			throw new NoElementFoundException(getExceptionMsg(linkText));
 		else {
 			WdOperators.clickOnLocation(link, 0, 0);
-			return true;
 		}
 	}
 
@@ -191,14 +189,13 @@ public class MksLink {
 	 * @return If found with given occurrence and mouse left clicked, then returns
 	 *         true. Else returns false.
 	 */
-	public boolean leftClick(String linkText, int ofLinkTextOccurrence) {
+	public void leftClick(String linkText, int ofLinkTextOccurrence) {
 
 		link = getLink(linkText, ofLinkTextOccurrence);
 		if (link == null)
-			return false;
+			throw new NoElementFoundException(getExceptionMsg(linkText, ofLinkTextOccurrence));
 		else {
 			WdOperators.clickOnLocation(link, 0, 0);
-			return true;
 		}
 	}
 	
@@ -212,14 +209,13 @@ public class MksLink {
 	 * @return If found and JS clicked, then returns true. Else returns
 	 *         false.
 	 */
-	public boolean jsClick(String linkText) {
+	public void jsClick(String linkText) {
 
 		link = getLink(linkText);
 		if (link == null)
-			return false;
+			throw new NoElementFoundException(getExceptionMsg(linkText));
 		else {
 			WdOperators.jsClick(link);
-			return true;
 		}
 	}
 
@@ -238,15 +234,26 @@ public class MksLink {
 	 * @return If found with given occurrence and JS clicked, then returns
 	 *         true. Else returns false.
 	 */
-	public boolean jsClick(String linkText, int ofLinkTextOccurrence) {
+	public void jsClick(String linkText, int ofLinkTextOccurrence) {
 
 		link = getLink(linkText, ofLinkTextOccurrence);
 		if (link == null)
-			return false;
+			throw new NoElementFoundException(getExceptionMsg(linkText, ofLinkTextOccurrence));
 		else {
 			WdOperators.jsClick(link);
-			return true;
 		}
 	}
+	
+
+	private String getExceptionMsg(String linkTxt) {
+		return String.format("There is no link element found for the link locator %s with the link text %s",
+				linkLocator.toString(), linkTxt);
+	}
+	
+	private String getExceptionMsg(String linkTxt, int textOccurrence) {
+		return String.format("%s, at the occcurrence of text at position %s",
+				getExceptionMsg(linkTxt), textOccurrence);
+	}
+	
 	
 }

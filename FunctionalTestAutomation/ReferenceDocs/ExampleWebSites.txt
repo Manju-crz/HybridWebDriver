@@ -11,3 +11,11 @@ each and every legacy element are defined here - http://the-internet.herokuapp.c
 
 
 We may get calendar once after logging to it - http://newtours.demoaut.com/mercuryregister.php
+
+
+Specially for radio buttons
+http://www.echoecho.com/htmlforms10.htm
+
+
+Specially foe checkboxes
+http://www.echoecho.com/htmlforms09.htm
