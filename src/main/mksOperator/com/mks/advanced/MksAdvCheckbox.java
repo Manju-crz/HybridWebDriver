@@ -31,9 +31,9 @@ public class MksAdvCheckbox extends MksCheckbox{
 		checkboxLabelsLocator = associatedLabelsLocator;
 		checkboxLabel = Finder.find(associatedLabelsLocator);
 		checkboxLabels = Finder.findAll(associatedLabelsLocator);
-		checkboxs = Finder.findAll(checkboxLocator);
+		checkboxes = Finder.findAll(checkboxLocator);
 		elementsSize = checkboxLabels.size();
-		int labelsSize = checkboxs.size();
+		int labelsSize = checkboxes.size();
 		if(!(labelsSize == elementsSize))
 			throw new ElementsCountMisMatchException(checkBoxesLocator, "checkBoxesLocator", elementsSize, associatedLabelsLocator, "associatedLabelsLocator", labelsSize);
 	}
@@ -49,7 +49,7 @@ public class MksAdvCheckbox extends MksCheckbox{
 		for(int i=0; i<elementsSize; i++) {
 			if(checkboxLabels.get(i).getText().trim().equals(checkboxText.trim()))
 			{
-				return checkboxs.get(i);
+				return checkboxes.get(i);
 			}
 		}
 		return null;
@@ -87,7 +87,7 @@ public class MksAdvCheckbox extends MksCheckbox{
 			if (label.getText().trim().equals(checkboxText.trim())) {
 				count ++;
 				if (count == ofCheckboxTextOccurrence) {
-					return checkboxs.get(loopCount);
+					return checkboxes.get(loopCount);
 				}
 			}
 			loopCount++;

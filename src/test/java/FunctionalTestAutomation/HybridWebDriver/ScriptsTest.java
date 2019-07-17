@@ -1,5 +1,7 @@
 package FunctionalTestAutomation.HybridWebDriver;
 
+import javax.activity.InvalidActivityException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
@@ -23,7 +25,7 @@ public class ScriptsTest {
 	
 	
 	
-	@Test
+	//@Test
 	public void testMethod() {
 		
 		WebDriver driver = new Connection(Browser.CHROME).launchBrowser(URL);
@@ -45,7 +47,18 @@ public class ScriptsTest {
 		
 	}
 	
-	
+	@Test
+	public void testCheckboxes() throws InvalidActivityException {
+		String checkBoxesXpath = "//input[@name='Checkbox']";
+		WebDriver driver = new Connection(Browser.CHROME).launchBrowser("http://www.echoecho.com/htmlforms09.htm");
+		
+		MksCheckbox ch = new MksCheckbox(By.xpath(checkBoxesXpath));
+		ch.leftClick(4, 2, 3);
+		System.out.println("clicked-----------------------------");
+		SoftSleeper.seconds(3);
+		
+		Connection.closeDriverBrowsers();
+	}
 	
 	
 }
