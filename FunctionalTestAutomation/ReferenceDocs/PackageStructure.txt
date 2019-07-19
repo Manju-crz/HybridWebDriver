@@ -1,0 +1,24 @@
+
+Hybrid Framework
+	src/main/java
+		com.mks.dateUtil
+		com.mks.directorizer
+		com.mks.fileInteractor
+		com.mks.fileInteractor.xmlParser
+		com.mks.mailer
+		com.mks.testverifier
+		com.mks.utilizer
+	src/test/java
+		FunctionalTestAutomation.HybridWebDriver
+	src/main/mksDriver
+		com.mks.connectors
+		com.mks.exceptions
+		com.mks.holders
+		com.mks.seluty
+	src/main/mksOperator
+		com.mks.advanced
+		com.mks.definitions
+		com.mks.influence
+		com.mks.influence.calendars
+		com.mks.legacy
+
