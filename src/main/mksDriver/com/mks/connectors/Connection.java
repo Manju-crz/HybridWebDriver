@@ -21,27 +21,28 @@ import com.mks.directorizer.FilesInvestigator;
 import com.mks.directorizer.FoldersInvestigator;
 import com.mks.directorizer.SystemDirectoryPath;
 
-
 public class Connection {
 
 	private static Browser browser = null;
 	private static WebDriver driver = null;
-
-	public Connection() {
-		this.browser = Browser.CHROME;
-	}
 	
-	public Connection(Browser browser) {
-		this.browser = browser;
-	}
 	
+	/*
+	 * public Connection() { this.browser = Browser.CHROME; }
+	 * 
+	 * public Connection(Browser browser) { this.browser = browser; }
+	 */
 	public enum Browser {
 		FIREFOX, CHROME, SAFARI, IE, EDGE
 	};
 
 	private static final Logger logger = LogManager.getLogger(Connection.class);
 
-	public WebDriver launchBrowser() {
+	private static WebDriver launchBrowser() {
+		
+		if(browser == null)
+			browser = Browser.CHROME;
+		
 		switch (browser) {
 		case CHROME:
 			driver = Browsers.getChromeBrowser(getDriverPath("chromedriver"));
@@ -61,13 +62,17 @@ public class Connection {
 		return driver;
 	}
 	
-	public WebDriver launchBrowser(String URL) {
+	public static WebDriver launchBrowser(String URL) {
 		launchBrowser();
 		driver.get(URL);
 		return driver;
 	}
 	
-	
+	public static WebDriver launchBrowser(Browser reqBrowser, String URL) {
+		browser = reqBrowser;
+		launchBrowser(URL);
+		return driver;
+	}
 	
 	private static String getDriverPath(String driverName) {
 		String driverFolder;
@@ -107,7 +112,6 @@ public class Connection {
 		driver = currentDriver;
 	}
 	
-	
 	public static void closeDriverBrowsers() {
 		if (driver != null)
 			driver.quit();
@@ -117,5 +121,5 @@ public class Connection {
 	public static WebDriver getDriver() {
 		return driver;
 	}
-
+	
 }

@@ -7,6 +7,7 @@ import javax.activity.InvalidActivityException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidArgumentException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 import com.mks.connectors.Connection;
@@ -56,7 +57,7 @@ public class MksCheckbox extends LegacyElementsActions{
 	 * Given checkbox will be clicked, as per the given position of the checkbox elements starting from 1.
 	 * @throws InvalidActivityException 
 	 */
-	public void click(int ... clickableElementsPositions) throws InvalidActivityException {
+	public void click(int ... clickableElementsPositions) {
 		
 		List<Integer> lst = validateCheckboxesGivenPositionExistance(clickableElementsPositions);
 		clickOnElementsBasedOnPositions(ClickTypes.SimpleClick, checkboxes, lst);
@@ -66,7 +67,7 @@ public class MksCheckbox extends LegacyElementsActions{
 	 * Given checkbox will be clicked with JavaScriptExecutor
 	 * @throws InvalidActivityException 
 	 */
-	public void jsClick(int ... clickableElementsPositions) throws InvalidActivityException {
+	public void jsClick(int ... clickableElementsPositions) {
 		List<Integer> lst = validateCheckboxesGivenPositionExistance(clickableElementsPositions);
 		clickOnElementsBasedOnPositions(ClickTypes.JsClick, checkboxes, lst);
 	}
@@ -75,31 +76,42 @@ public class MksCheckbox extends LegacyElementsActions{
 	 * Given checkbox will be mouse left clicked
 	 * @throws InvalidActivityException 
 	 */
-	public void leftClick(int ... clickableElementsPositions) throws InvalidActivityException {
+	public void leftClick(int ... clickableElementsPositions) {
 		List<Integer> lst = validateCheckboxesGivenPositionExistance(clickableElementsPositions);
 		clickOnElementsBasedOnPositions(ClickTypes.MouseLeftClick, checkboxes, lst);
 	}
 	
 	
-	public boolean selectIfNotSelected() {
-		
+	public boolean select() {
 		if(!checkbox.isSelected()) {
-			checkbox.click();
-			SoftSleeper.milliseconds(100);
-			checkbox = Finder.find(checkboxLocator);
-			if(!checkbox.isSelected())
-				return false;
+			click();
 			return true;
 		}
-		return true;
+		if(!checkbox.isSelected()) {
+			jsClick();
+			return true;
+		}
+		if(!checkbox.isSelected()) {
+			leftClick();
+			return true;
+		}
+		return false;
 	}
-	
-	
-	
-	public boolean isSelected() {
-		if(!checkbox.isSelected())
-			return false;
-		return true;
+
+	public boolean unSelect() {
+		if(checkbox.isSelected()) {
+			click();
+			return true;
+		}
+		if(checkbox.isSelected()) {
+			jsClick();
+			return true;
+		}
+		if(checkbox.isSelected()) {
+			leftClick();
+			return true;
+		}
+		return false;
 	}
 	
 	
@@ -110,6 +122,33 @@ public class MksCheckbox extends LegacyElementsActions{
 		if(checkboxElementsFoundCount < maxNum)
 			throw new NoElementFoundException(String.format("Total %s checkboxes found with the checkboxes locator %s, and given input to select the checkbox of occurrence is %s in the ui ", checkboxElementsFoundCount, checkboxLocator.toString(), maxNum));
 		return MksArray.getArraysAsList(clickableElementsPositions);
+	}
+	
+	
+	@Override
+	public boolean isSelected() {
+		if(!checkbox.isSelected())
+			return false;
+		return true;
+	}
+
+	@Override
+	public boolean isDisplayed() {
+		try {
+			if(checkbox.isDisplayed())
+				return true;
+		}catch(StaleElementReferenceException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		if(!checkbox.isEnabled())
+			return false;
+		return true;
 	}
 	
 }

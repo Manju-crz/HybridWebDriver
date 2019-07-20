@@ -108,34 +108,31 @@ public class FirstTest {
 	
 	//@Test
 	public void testMethod2() {
-		
-		WebDriver driver = new Connection(Browser.CHROME).launchBrowser();
-		driver.get("https://stackoverflow.com");
-		SoftSleeper.seconds(2);
-		
-		WebDriver driver1 = new Connection(Browser.CHROME).launchBrowser();
-		driver1.get("https://flipkart.com");
-		SoftSleeper.seconds(2);
-		
-		//new Connection().setDriver(driver);
-		Connection.setDriver(driver);
-		Connection.closeDriverBrowsers();
-		
+		/*
+		 * WebDriver driver = new Connection(Browser.CHROME).launchBrowser();
+		 * driver.get("https://stackoverflow.com"); SoftSleeper.seconds(2);
+		 * 
+		 * WebDriver driver1 = new Connection(Browser.CHROME).launchBrowser();
+		 * driver1.get("https://flipkart.com"); SoftSleeper.seconds(2);
+		 * 
+		 * //new Connection().setDriver(driver); Connection.setDriver(driver);
+		 * Connection.closeDriverBrowsers();
+		 * 
+		 * Connection.setDriver(driver1); Connection.closeDriverBrowsers();
+		 */
 	}
 	
-
+	
 	@Test
 	public void testMethod3() {
-		
-		WebDriver driver = new Connection(Browser.FIREFOX).launchBrowser();
-		driver.get("https://stackoverflow.com");
-		SoftSleeper.seconds(2);
-		
-		WebDriver driver1 = new Connection(Browser.FIREFOX).launchBrowser();
-		driver1.get("https://flipkart.com");
-		SoftSleeper.seconds(2);
-		Connection.setDriver(driver);
-		Connection.closeDriverBrowsers();
+		/*
+		 * WebDriver driver = new Connection(Browser.FIREFOX).launchBrowser();
+		 * driver.get("https://stackoverflow.com"); SoftSleeper.seconds(2);
+		 * 
+		 * WebDriver driver1 = new Connection(Browser.FIREFOX).launchBrowser();
+		 * driver1.get("https://flipkart.com"); SoftSleeper.seconds(2);
+		 * Connection.setDriver(driver); Connection.closeDriverBrowsers();
+		 */
 		
 	}
 	

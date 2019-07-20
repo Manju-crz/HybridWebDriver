@@ -11,7 +11,7 @@ import com.mks.seluty.WdOperators;
 public abstract class LegacyElementsActions implements LegacyElements{
 	
 	
-	protected void clickOnElementsBasedOnPositions(ClickTypes type, List<WebElement> elements, List<Integer> positions) throws InvalidActivityException {
+	protected void clickOnElementsBasedOnPositions(ClickTypes type, List<WebElement> elements, List<Integer> positions) {
 		
 		int count = 0;
 		switch (type) {
@@ -37,7 +37,7 @@ public abstract class LegacyElementsActions implements LegacyElements{
 				}
 				break;
 			case MouseRightClick:
-				throw new InvalidActivityException("Currently mouse right click is not supported");
+				//throw new InvalidActivityException("Currently mouse right click is not supported");
 			case DoubleClick:
 				for(WebElement element : elements) {
 					count ++;

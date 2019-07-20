@@ -6,4 +6,11 @@ public interface LegacyElements {
 		SimpleClick, JsClick, MouseLeftClick, MouseRightClick, DoubleClick;
 	}
 	
+	public boolean isDisplayed();
+	
+	public boolean isEnabled();
+	
+	public boolean isSelected();
+	
+	
 }

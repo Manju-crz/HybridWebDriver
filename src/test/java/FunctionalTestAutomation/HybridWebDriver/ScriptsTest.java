@@ -4,6 +4,8 @@ import javax.activity.InvalidActivityException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import com.mks.advanced.MksAdvCheckbox;
@@ -11,54 +13,183 @@ import com.mks.connectors.Connection;
 import com.mks.connectors.Connection.Browser;
 import com.mks.legacy.MksCheckbox;
 import com.mks.legacy.MksLink;
+import com.mks.seluty.Finder;
+import com.mks.seluty.WdOperators;
 import com.mks.utilizer.SoftSleeper;
 
 public class ScriptsTest {
-	
+
 	static String URL = "http://the-internet.herokuapp.com/";
 	static By firstPageLinks = By.xpath("//ul/li/a");
-	
+
 	static By checkboxes = By.xpath("//input[@type='checkbox']");
 	static By firstCheckbox = By.xpath("(//input[@type='checkbox'])[1]");
 	static By secondCheckbox = By.xpath("(//input[@type='checkbox'])[2]");
-	
-	
-	
-	
-	//@Test
+
+	@Test
 	public void testMethod() {
 		
-		WebDriver driver = new Connection(Browser.CHROME).launchBrowser(URL);
+		/*
+		WebDriver driver = Connection.launchBrowser(URL);
 		new MksLink(firstPageLinks).click("Checkboxes");
 		SoftSleeper.seconds(3);
-		
 		MksCheckbox ch = new MksCheckbox(firstCheckbox);
 		System.out.println("Is selected : " + ch.isSelected());
 		ch.click();
 		SoftSleeper.seconds(2);
 		System.out.println("Is selected : " + ch.isSelected());
-		
 		MksCheckbox ch1 = new MksCheckbox(secondCheckbox);
 		System.out.println("Is selected : " + ch1.isSelected());
 		ch1.click();
 		SoftSleeper.seconds(2);
-		
 		Connection.closeDriverBrowsers();
+		*/
 		
-	}
-	
-	@Test
-	public void testCheckboxes() throws InvalidActivityException {
+		/*
 		String checkBoxesXpath = "//input[@name='Checkbox']";
-		WebDriver driver = new Connection(Browser.CHROME).launchBrowser("http://www.echoecho.com/htmlforms09.htm");
-		
-		MksCheckbox ch = new MksCheckbox(By.xpath(checkBoxesXpath));
-		ch.leftClick(4, 2, 3);
+		WebDriver driver1 = Connection.launchBrowser(Browser.CHROME, "http://www.echoecho.com/htmlforms09.htm");
+		MksCheckbox ch2 = new MksCheckbox(By.xpath(checkBoxesXpath));
+		ch2.leftClick(1, 2, 3);
 		System.out.println("clicked-----------------------------");
-		SoftSleeper.seconds(3);
-		
+		SoftSleeper.seconds(2);
+		System.out.println("ch.isSelected() is : " + ch2.isSelected());
+		System.out.println("ch.isDisplayed() is : " + ch2.isDisplayed());
+		System.out.println("ch.isEnabled() is : " + ch2.isEnabled());
 		Connection.closeDriverBrowsers();
+		*/
+		
+		WebDriver driver2 = Connection.launchBrowser("https://www.binance.com/en/login");
+		By currencyLocator = By.xpath("(//li[@role='menu'])[4]");
+		By firstCurrencyType = By.xpath("(//li[@role='menu']//ul/li)[1]");
+		
+		WdOperators.moveMouseTo(Finder.find(currencyLocator));
+		SoftSleeper.seconds(2);
+		MksCheckbox ch2 = new MksCheckbox(firstCurrencyType);
+		System.out.println("currencyElement.isDisplayed() : " + ch2.isDisplayed());
+		WdOperators.moveMouseTo(Finder.find(By.id("login_input_login")));
+		SoftSleeper.seconds(2);
+		//currencyElement = Finder.find(firstCurrencyType);
+		System.out.println("currencyElement.isDisplayed() : " + new MksCheckbox(firstCurrencyType).isDisplayed());
+		
 	}
-	
-	
+
+	WebDriver driver1 = null;
+	WebDriver driver = null;
+
+	// @Test
+	public void testConnection() {
+
+		String checkBoxesXpath = "//input[@name='Checkbox']";
+
+		// driver = Connection.launchBrowser(Browser.CHROME,
+		// "http://www.echoecho.com/htmlforms09.htm");
+		SoftSleeper.seconds(2);
+		MksCheckbox ch = new MksCheckbox(By.xpath(checkBoxesXpath));
+		ch.leftClick(1, 2, 3);
+		System.out.println("clicked-----------------------------");
+		SoftSleeper.seconds(2);
+		System.out.println("ch.isSelected() is : " + ch.isSelected());
+		System.out.println("ch.isDisplayed() is : " + ch.isDisplayed());
+		System.out.println("ch.isEnabled() is : " + ch.isEnabled());
+
+		// driver1 =
+		// Connection.launchBrowser("https://html.com/attributes/input-disabled/");
+		SoftSleeper.seconds(2);
+		By disabledElement = By.xpath("//h1[@class='title-page']/code");
+		By disabledinput = By.xpath("//div[@class='render']/form/input");
+		driver1 = Connection.getDriver();
+		driver1.findElement(disabledElement).click();
+		SoftSleeper.seconds(2);
+		System.out.println("driver1.findElement(disabledinput) : " + driver1.findElement(disabledinput).isEnabled());
+		// Connection.getBrowserTitle(); SoftSleeper.seconds(3);
+		MksCheckbox ch1 = new MksCheckbox(disabledElement);
+		System.out.println("ch.isSelected() is 11: " + ch1.isSelected());
+		System.out.println("ch.isDisplayed() is : 11" + ch1.isDisplayed());
+		System.out.println("ch.isEnabled() is : 11" + ch1.isEnabled());
+
+	}
+
+	// @Test
+	public void testConnection1() {
+
+		String checkBoxesXpath = "//input[@name='Checkbox']";
+
+		// driver = Connection.launchBrowser(Browser.CHROME,
+		// "http://www.echoecho.com/htmlforms09.htm");
+		SoftSleeper.seconds(2);
+		MksCheckbox ch = new MksCheckbox(By.xpath(checkBoxesXpath));
+		ch.leftClick(1, 2, 3);
+		System.out.println("clicked-----------------------------");
+		SoftSleeper.seconds(2);
+		System.out.println("ch.isSelected() is : " + ch.isSelected());
+		System.out.println("ch.isDisplayed() is : " + ch.isDisplayed());
+		System.out.println("ch.isEnabled() is : " + ch.isEnabled());
+
+		// driver1 =
+		// Connection.launchBrowser("https://html.com/attributes/input-disabled/");
+		SoftSleeper.seconds(2);
+		By disabledElement = By.xpath("//h1[@class='title-page']/code");
+		By disabledinput = By.xpath("//div[@class='render']/form/input");
+		driver1 = Connection.getDriver();
+		driver1.findElement(disabledElement).click();
+		SoftSleeper.seconds(2);
+		System.out.println("driver1.findElement(disabledinput) : " + driver1.findElement(disabledinput).isEnabled());
+		// Connection.getBrowserTitle(); SoftSleeper.seconds(3);
+		MksCheckbox ch1 = new MksCheckbox(disabledElement);
+		System.out.println("ch.isSelected() is 11: " + ch1.isSelected());
+		System.out.println("ch.isDisplayed() is : 11" + ch1.isDisplayed());
+		System.out.println("ch.isEnabled() is : 11" + ch1.isEnabled());
+
+	}
+
+	/*
+	 * @Test public void testConnection2() {
+	 * 
+	 * String checkBoxesXpath = "//input[@name='Checkbox']";
+	 * 
+	 * 
+	 * Connection con1 = new
+	 * Connection("https://html.com/attributes/input-disabled/");
+	 * con1.setMyDriver(con1); //driver1 =
+	 * Connection.launchBrowser("https://html.com/attributes/input-disabled/");
+	 * SoftSleeper.seconds(2); By disabledElement =
+	 * By.xpath("//h1[@class='title-page']/code"); By disabledinput =
+	 * By.xpath("//div[@class='render']/form/input"); System.out.
+	 * println("con.getMyDriver().findElements(disabledElement).size() : " +
+	 * con1.getMyDriver().findElements(disabledElement).size());
+	 * SoftSleeper.seconds(2); //Connection.getBrowserTitle();
+	 * SoftSleeper.seconds(3); MksCheckbox ch1 = new MksCheckbox(disabledElement);
+	 * System.out.println("ch.isSelected() is 11: " + ch1.isSelected());
+	 * System.out.println("ch.isDisplayed() is : 11" + ch1.isDisplayed());
+	 * System.out.println("ch.isEnabled() is : 11" + ch1.isEnabled());
+	 * 
+	 * 
+	 * 
+	 * Connection con = new Connection("http://www.echoecho.com/htmlforms09.htm");
+	 * SoftSleeper.seconds(2); con.setMyDriver(con); System.out.
+	 * println("con.getMyDriver().findElements(By.xpath(checkBoxesXpath)).size() : "
+	 * + con.getMyDriver().findElements(By.xpath(checkBoxesXpath)).size()); //driver
+	 * = Connection.launchBrowser(Browser.CHROME,
+	 * "http://www.echoecho.com/htmlforms09.htm"); SoftSleeper.seconds(2);
+	 * MksCheckbox ch = new MksCheckbox(By.xpath(checkBoxesXpath)); ch.leftClick(1,
+	 * 2, 3); System.out.println("clicked-----------------------------");
+	 * SoftSleeper.seconds(2); System.out.println("ch.isSelected() is : " +
+	 * ch.isSelected()); System.out.println("ch.isDisplayed() is : " +
+	 * ch.isDisplayed()); System.out.println("ch.isEnabled() is : " +
+	 * ch.isEnabled());
+	 * 
+	 * }
+	 */
+
+	@AfterClass
+	public void afetrClassQuit() {
+
+		Connection.setDriver(driver);
+		Connection.closeDriverBrowsers();
+
+		Connection.setDriver(driver1);
+		Connection.closeDriverBrowsers();
+
+	}
+
 }
