@@ -4,17 +4,19 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidArgumentException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
+import com.mks.definitions.LegacyElementsActions;
 import com.mks.exceptions.NoElementFoundException;
 import com.mks.seluty.Finder;
 import com.mks.seluty.WdOperators;
 
-public class MksButton {
+public class MksButton extends LegacyElementsActions {
 
-	private static By buttonLocator = null;
-	private static WebElement button = null;
-	private static List<WebElement> buttons = null;
+	private By buttonLocator = null;
+	private WebElement button = null;
+	private List<WebElement> buttons = null;
 
 	public MksButton(By locator) {
 		buttonLocator = locator;
@@ -254,6 +256,32 @@ public class MksButton {
 		return String.format("%s, at the occcurrence of text at position %s",
 				getExceptionMsg(buttonTxt), textOccurrence);
 	}
-	
+
+
+	@Override
+	public boolean isSelected() {
+		if (!button.isSelected())
+			return false;
+		return true;
+	}
+
+	@Override
+	public boolean isDisplayed() {
+		try {
+			if (button.isDisplayed())
+				return true;
+		} catch (StaleElementReferenceException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		if (!button.isEnabled())
+			return false;
+		return true;
+	}
 	
 }

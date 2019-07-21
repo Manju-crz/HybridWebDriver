@@ -98,16 +98,6 @@ public class Connection {
 		return filePath;
 	}
 	
-	/*public static void setBrowser(String browserName) {
-		if (browserName.equalsIgnoreCase("firefox") || browserName.equalsIgnoreCase("ff")
-				|| browserName.equalsIgnoreCase("Mozilla"))
-			browser = Browser.FIREFOX;
-		else if (browserName.contains("chrome") || browserName.contains("Chrome") || browserName.equalsIgnoreCase("gc"))
-			browser = Browser.CHROME;
-		else
-			browser = Browser.CHROME;
-	}*/
-
 	public static void setDriver(WebDriver currentDriver) {
 		driver = currentDriver;
 	}

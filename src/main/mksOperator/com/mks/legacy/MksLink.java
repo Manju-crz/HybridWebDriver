@@ -4,17 +4,19 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidArgumentException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
+import com.mks.definitions.LegacyElementsActions;
 import com.mks.exceptions.NoElementFoundException;
 import com.mks.seluty.Finder;
 import com.mks.seluty.WdOperators;
 
-public class MksLink {
+public class MksLink extends LegacyElementsActions {
 
-	private static By linkLocator = null;
-	private static WebElement link = null;
-	private static List<WebElement> links = null;
+	private By linkLocator = null;
+	private WebElement link = null;
+	private List<WebElement> links = null;
 
 	public MksLink(By locator) {
 		linkLocator = locator;
@@ -253,6 +255,32 @@ public class MksLink {
 	private String getExceptionMsg(String linkTxt, int textOccurrence) {
 		return String.format("%s, at the occcurrence of text at position %s",
 				getExceptionMsg(linkTxt), textOccurrence);
+	}
+
+	@Override
+	public boolean isSelected() {
+		if (!link.isSelected())
+			return false;
+		return true;
+	}
+
+	@Override
+	public boolean isDisplayed() {
+		try {
+			if (link.isDisplayed())
+				return true;
+		} catch (StaleElementReferenceException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		if (!link.isEnabled())
+			return false;
+		return true;
 	}
 	
 	

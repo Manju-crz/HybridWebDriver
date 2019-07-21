@@ -1,5 +1,8 @@
 package FunctionalTestAutomation.HybridWebDriver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
@@ -17,7 +20,7 @@ import com.mks.utilizer.SoftSleeper;
 public class FirstTest {
 	
 	
-	
+	private static List<Integer> vals = new ArrayList<>();
 	
 	
 	
@@ -133,6 +136,18 @@ public class FirstTest {
 		 * driver1.get("https://flipkart.com"); SoftSleeper.seconds(2);
 		 * Connection.setDriver(driver); Connection.closeDriverBrowsers();
 		 */
+		
+		vals.add(1);
+		vals.add(3);
+		
+		System.out.println("vals are : " + vals.toString());
+		
+		vals.clear();
+		System.out.println("vals are : " + vals.toString());
+		
+		vals.add(2);
+		System.out.println("vals are : " + vals.toString());
+		
 		
 	}
 	

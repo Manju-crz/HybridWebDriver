@@ -21,11 +21,11 @@ public class MksAdvCheckbox extends MksCheckbox{
 		super(locator);
 	}
 	
+	private By checkboxLabelsLocator = null;
+	private WebElement checkboxLabel = null;
+	private List<WebElement> checkboxLabels = null;
+	private int elementsSize = 0;
 	
-	private static By checkboxLabelsLocator = null;
-	private static WebElement checkboxLabel = null;
-	private static List<WebElement> checkboxLabels = null;
-	private static int elementsSize = 0;
 	public MksAdvCheckbox(By checkBoxesLocator, By associatedLabelsLocator) throws InvalidParameterSpecException {
 		super(checkBoxesLocator);
 		checkboxLabelsLocator = associatedLabelsLocator;

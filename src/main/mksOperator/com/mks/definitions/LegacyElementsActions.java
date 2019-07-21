@@ -2,8 +2,6 @@ package com.mks.definitions;
 
 import java.util.List;
 
-import javax.activity.InvalidActivityException;
-
 import org.openqa.selenium.WebElement;
 
 import com.mks.seluty.WdOperators;
@@ -45,6 +43,25 @@ public abstract class LegacyElementsActions implements LegacyElements{
 						WdOperators.doubleClick(element);
 				}
 				break;
+		}
+	}
+	
+	protected void clickOnElement(ClickTypes type, WebElement element) {
+		switch (type) {
+		case SimpleClick:
+					element.click();
+			break;
+		case JsClick:
+					WdOperators.jsClick(element);
+			break;
+		case MouseLeftClick:
+					WdOperators.clickOnLocation(element, 0, 0);
+			break;
+		case MouseRightClick:
+			//throw new InvalidActivityException("Currently mouse right click is not supported");
+		case DoubleClick:
+					WdOperators.doubleClick(element);
+			break;
 		}
 	}
 	
