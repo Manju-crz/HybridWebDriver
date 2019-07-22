@@ -76,7 +76,7 @@ public class ScriptsTest {
 	}
 	
 	
-	@Test
+	//@Test
 	public void testCheckBox() throws InvalidAlgorithmParameterException, AttributeNotFoundException {
 		
 		/*
@@ -232,7 +232,7 @@ public class ScriptsTest {
 		System.out.println("Select based on positions : " + new MksRadioButton(By.xpath("(//input[@type='radio'][@name='group1'])[2]")).isSelected());
 		System.out.println("Select based on positions : " + new MksRadioButton(By.xpath("(//input[@type='radio'][@name='group1'])[3]")).isSelected());
 		
-		
+		/*
 		System.out.println("Selcet grp 1 radio button : " + rd.select("Milk"));
 		SoftSleeper.seconds(2);
 		System.out.println("Selcet grp 1 radio button click: " + rd.jsClick("Butter"));
@@ -243,6 +243,21 @@ public class ScriptsTest {
 		System.out.println("Is Select based on positions 2: " + rd.select(2));
 		SoftSleeper.seconds(2);
 		System.out.println("Is Select based on positions 3: " + rd.select(3));
+		SoftSleeper.seconds(2);
+		
+		
+		System.out.println("Select cheese from grp : " + rd.selectFromGroup("Cheese"));
+		SoftSleeper.seconds(2);
+		System.out.println("Select cheese from grp : " + rd.selectFromGroup(1));
+		SoftSleeper.seconds(2);
+		*/
+		SoftSleeper.seconds(4);
+		rd = new MksRadioButton(By.xpath("//td[@class='table5']//input[@type='radio']"), "value");
+		
+
+		System.out.println("Select cheese from grp : " + rd.selectFromGroup("Cheese"));
+		SoftSleeper.seconds(2);
+		System.out.println("Select cheese from grp : " + rd.selectFromGroup(4));
 		SoftSleeper.seconds(2);
 		
 	}

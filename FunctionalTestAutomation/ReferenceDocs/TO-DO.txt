@@ -11,3 +11,5 @@ DONE: 5. MksRadioButton class needs needs to be tested completely.
 11. MksLink - Check if it possible to write getURL code with href attribute if existing.
 12. Required restrictions to all methods with exceptions in legacy classes.
 13. Connection clas exe files path identification should work based on passed input from properties file. Moreover, if there is no file existing, should be able to indetify and pickup the file from downloads folder.
+14. Try to seperate MksCheckbox(By locator) and MksCheckbox(By locator, txt) constructor relevant methods access specific to each.
+15. MksLink - write code to do right click and open in new tab.

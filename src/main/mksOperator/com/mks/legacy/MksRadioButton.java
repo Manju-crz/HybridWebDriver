@@ -10,6 +10,7 @@ import javax.activity.InvalidActivityException;
 import javax.management.AttributeNotFoundException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotSelectableException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
@@ -86,15 +87,18 @@ public class MksRadioButton extends LegacyElementsActions {
 	 * radiobutton elements starting from 1.
 	 * 
 	 */
-	/*public void click(int... clickableElementsPositions) {
+	/*
+	 * public void click(int... clickableElementsPositions) {
+	 * 
+	 * List<Integer> lst =
+	 * validateRadioButtonsGivenPositionExistance(clickableElementsPositions);
+	 * clickOnElementsBasedOnPositions(ClickTypes.SimpleClick, radiobuttons, lst); }
+	 */
 
-		List<Integer> lst = validateRadioButtonsGivenPositionExistance(clickableElementsPositions);
-		clickOnElementsBasedOnPositions(ClickTypes.SimpleClick, radiobuttons, lst);
-	}*/
-	
 	/**
 	 * Given radiobutton will be clicked, as per the given position of the
 	 * radiobutton elements starting from 1.
+	 * 
 	 * @param clickableElementPosition
 	 */
 	public void click(int clickableElementPosition) {
@@ -108,30 +112,25 @@ public class MksRadioButton extends LegacyElementsActions {
 	 * 
 	 * @throws AttributeNotFoundException
 	 */
-	/*public List<String> click(String... radiobuttonLabels) throws AttributeNotFoundException {
-
-		Map<WebElement, String> validRadioButtonsForLabel = validateRadioButtonsForGivenLabelAtttribure();
-
-		List<String> nonClickedLabels = new ArrayList<String>();
-		for (String label : radiobuttonLabels) {
-			boolean foundLabel = false;
-			for (WebElement rdobtn : validRadioButtonsForLabel.keySet()) {
-				if (label.equals(validRadioButtonsForLabel.get(rdobtn))) {
-					rdobtn.click();
-					foundLabel = true;
-					break;
-				}
-			}
-			if (!foundLabel)
-				nonClickedLabels.add(label);
-		}
-
-		return nonClickedLabels;
-	}*/
+	/*
+	 * public List<String> click(String... radiobuttonLabels) throws
+	 * AttributeNotFoundException {
+	 * 
+	 * Map<WebElement, String> validRadioButtonsForLabel =
+	 * validateRadioButtonsForGivenLabelAtttribure();
+	 * 
+	 * List<String> nonClickedLabels = new ArrayList<String>(); for (String label :
+	 * radiobuttonLabels) { boolean foundLabel = false; for (WebElement rdobtn :
+	 * validRadioButtonsForLabel.keySet()) { if
+	 * (label.equals(validRadioButtonsForLabel.get(rdobtn))) { rdobtn.click();
+	 * foundLabel = true; break; } } if (!foundLabel) nonClickedLabels.add(label); }
+	 * 
+	 * return nonClickedLabels; }
+	 */
 
 	/**
-	 * Given radiobutton will be clicked, as per the given label of the
-	 * radiobutton.
+	 * Given radiobutton will be clicked, as per the given label of the radiobutton.
+	 * 
 	 * @param radiobuttonLabel
 	 */
 	public boolean click(String radiobuttonLabel) throws AttributeNotFoundException {
@@ -145,20 +144,22 @@ public class MksRadioButton extends LegacyElementsActions {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Given radiobutton will be clicked with JavaScriptExecutor
 	 * 
 	 * @throws InvalidActivityException
 	 */
-	/*public void jsClick(int... clickableElementsPositions) {
-		List<Integer> lst = validateRadioButtonsGivenPositionExistance(clickableElementsPositions);
-		clickOnElementsBasedOnPositions(ClickTypes.JsClick, radiobuttons, lst);
-	}*/
-	
+	/*
+	 * public void jsClick(int... clickableElementsPositions) { List<Integer> lst =
+	 * validateRadioButtonsGivenPositionExistance(clickableElementsPositions);
+	 * clickOnElementsBasedOnPositions(ClickTypes.JsClick, radiobuttons, lst); }
+	 */
+
 	/**
 	 * Given radiobutton will be JS clicked, as per the given position of the
 	 * radiobutton elements starting from 1.
+	 * 
 	 * @param clickableElementPosition
 	 */
 	public void jsClick(int clickableElementPosition) {
@@ -173,30 +174,27 @@ public class MksRadioButton extends LegacyElementsActions {
 	 * 
 	 * @throws AttributeNotFoundException
 	 */
-	/*public List<String> jsClick(String... radiobuttonLabels) throws AttributeNotFoundException {
-
-		Map<WebElement, String> validRadioButtonsForLabel = validateRadioButtonsForGivenLabelAtttribure();
-
-		List<String> nonClickedLabels = new ArrayList<String>();
-		for (String label : radiobuttonLabels) {
-			boolean foundLabel = false;
-			for (WebElement rdobtn : validRadioButtonsForLabel.keySet()) {
-				if (label.equals(validRadioButtonsForLabel.get(rdobtn))) {
-					WdOperators.jsClick(rdobtn);
-					foundLabel = true;
-					break;
-				}
-			}
-			if (!foundLabel)
-				nonClickedLabels.add(label);
-		}
-
-		return nonClickedLabels;
-	}*/
+	/*
+	 * public List<String> jsClick(String... radiobuttonLabels) throws
+	 * AttributeNotFoundException {
+	 * 
+	 * Map<WebElement, String> validRadioButtonsForLabel =
+	 * validateRadioButtonsForGivenLabelAtttribure();
+	 * 
+	 * List<String> nonClickedLabels = new ArrayList<String>(); for (String label :
+	 * radiobuttonLabels) { boolean foundLabel = false; for (WebElement rdobtn :
+	 * validRadioButtonsForLabel.keySet()) { if
+	 * (label.equals(validRadioButtonsForLabel.get(rdobtn))) {
+	 * WdOperators.jsClick(rdobtn); foundLabel = true; break; } } if (!foundLabel)
+	 * nonClickedLabels.add(label); }
+	 * 
+	 * return nonClickedLabels; }
+	 */
 
 	/**
 	 * Given radiobutton will be JS clicked, as per the given label of the
 	 * radiobutton.
+	 * 
 	 * @param radiobuttonLabel
 	 */
 	public boolean jsClick(String radiobuttonLabel) throws AttributeNotFoundException {
@@ -210,20 +208,23 @@ public class MksRadioButton extends LegacyElementsActions {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Given radiobutton will be mouse left clicked
 	 * 
 	 * @throws InvalidActivityException
 	 */
-	/*public void leftClick(int... clickableElementsPositions) {
-		List<Integer> lst = validateRadioButtonsGivenPositionExistance(clickableElementsPositions);
-		clickOnElementsBasedOnPositions(ClickTypes.MouseLeftClick, radiobuttons, lst);
-	}*/
+	/*
+	 * public void leftClick(int... clickableElementsPositions) { List<Integer> lst
+	 * = validateRadioButtonsGivenPositionExistance(clickableElementsPositions);
+	 * clickOnElementsBasedOnPositions(ClickTypes.MouseLeftClick, radiobuttons,
+	 * lst); }
+	 */
 
 	/**
-	 * Given radiobutton will be Mouse Left clicked, as per the given position of the
-	 * radiobutton elements starting from 1.
+	 * Given radiobutton will be Mouse Left clicked, as per the given position of
+	 * the radiobutton elements starting from 1.
+	 * 
 	 * @param clickableElementPosition
 	 */
 	public void leftClick(int clickableElementPosition) {
@@ -231,37 +232,34 @@ public class MksRadioButton extends LegacyElementsActions {
 		List<Integer> lst = validateRadioButtonsGivenPositionExistance(clickableElementPosition);
 		clickOnElementsBasedOnPositions(ClickTypes.MouseLeftClick, radiobuttons, lst);
 	}
-	
+
 	/**
 	 * Given radiobutton will be mouse left clicked, as per the given label of the
 	 * radiobutton
 	 * 
 	 * @throws AttributeNotFoundException
 	 */
-	/*public List<String> leftClick(String... radiobuttonLabels) throws AttributeNotFoundException {
-
-		Map<WebElement, String> validRadioButtonsForLabel = validateRadioButtonsForGivenLabelAtttribure();
-
-		List<String> nonClickedLabels = new ArrayList<String>();
-		for (String label : radiobuttonLabels) {
-			boolean foundLabel = false;
-			for (WebElement rdobtn : validRadioButtonsForLabel.keySet()) {
-				if (label.equals(validRadioButtonsForLabel.get(rdobtn))) {
-					WdOperators.clickOnLocation(rdobtn, 0, 0);
-					foundLabel = true;
-					break;
-				}
-			}
-			if (!foundLabel)
-				nonClickedLabels.add(label);
-		}
-
-		return nonClickedLabels;
-	}*/
+	/*
+	 * public List<String> leftClick(String... radiobuttonLabels) throws
+	 * AttributeNotFoundException {
+	 * 
+	 * Map<WebElement, String> validRadioButtonsForLabel =
+	 * validateRadioButtonsForGivenLabelAtttribure();
+	 * 
+	 * List<String> nonClickedLabels = new ArrayList<String>(); for (String label :
+	 * radiobuttonLabels) { boolean foundLabel = false; for (WebElement rdobtn :
+	 * validRadioButtonsForLabel.keySet()) { if
+	 * (label.equals(validRadioButtonsForLabel.get(rdobtn))) {
+	 * WdOperators.clickOnLocation(rdobtn, 0, 0); foundLabel = true; break; } } if
+	 * (!foundLabel) nonClickedLabels.add(label); }
+	 * 
+	 * return nonClickedLabels; }
+	 */
 
 	/**
 	 * Given radiobutton will be mpuse left clicked, as per the given label of the
 	 * radiobutton.
+	 * 
 	 * @param radiobuttonLabel
 	 */
 	public boolean leftClick(String radiobuttonLabel) throws AttributeNotFoundException {
@@ -275,7 +273,7 @@ public class MksRadioButton extends LegacyElementsActions {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Helps to select the radiobutton, If at all already selected, then keeps as
 	 * selected only without performing any action on it.
@@ -310,21 +308,16 @@ public class MksRadioButton extends LegacyElementsActions {
 	 *         chckbox selection action then such radiobuttons positions are
 	 *         returned in the form of List<Integer>
 	 */
-	/*public List<Integer> select(int... selectableRadioButtonsPositions) {
-
-		List<Integer> positions = validateRadioButtonsGivenPositionExistance(selectableRadioButtonsPositions);
-		List<Integer> nonSelectedPositions = new ArrayList<>();
-		int count = 0;
-		for (WebElement radioBtn : radiobuttons) {
-			count++;
-			if (positions.contains(count)) {
-				radiobutton = radioBtn;
-				if (!select())
-					nonSelectedPositions.add(count);
-			}
-		}
-		return nonSelectedPositions;
-	}*/
+	/*
+	 * public List<Integer> select(int... selectableRadioButtonsPositions) {
+	 * 
+	 * List<Integer> positions =
+	 * validateRadioButtonsGivenPositionExistance(selectableRadioButtonsPositions);
+	 * List<Integer> nonSelectedPositions = new ArrayList<>(); int count = 0; for
+	 * (WebElement radioBtn : radiobuttons) { count++; if
+	 * (positions.contains(count)) { radiobutton = radioBtn; if (!select())
+	 * nonSelectedPositions.add(count); } } return nonSelectedPositions; }
+	 */
 
 	/**
 	 * Helps to select the radiobutton, If at all already selected, then keeps as
@@ -334,7 +327,8 @@ public class MksRadioButton extends LegacyElementsActions {
 	 * starting from 1.
 	 * 
 	 * @param selectableRadioButtonsPositions
-	 * @return If all provided positioned are selected then returns with true; else returns false;
+	 * @return If all provided positioned are selected then returns with true; else
+	 *         returns false;
 	 */
 	public boolean select(int selectableRadioButtonPosition) {
 
@@ -350,8 +344,52 @@ public class MksRadioButton extends LegacyElementsActions {
 		}
 		return false;
 	}
-	
-	
+
+	/**
+	 * Helps to select the radiobutton, If at all already selected, then keeps as
+	 * selected only without performing any action on it. But the note is- it
+	 * identifies radiobutton elements to perform action, only if the given locator
+	 * identifies more than one radio button element in the UI, so that it can cross
+	 * check other radio buttons becomes un selected once after selecting the given
+	 * positioned radio button.
+	 * 
+	 * @param selectableRadioButtonPosition
+	 * @return If given radio button is selected then returns true, else returns
+	 *         false;
+	 * @throws InvalidAlgorithmParameterException Once after selecting given
+	 *                                            element, if other radio button
+	 *                                            from given group is still being
+	 *                                            selected, then throws exception.
+	 */
+	public boolean selectFromGroup(int selectableRadioButtonPosition) throws InvalidAlgorithmParameterException {
+		List<Integer> positions = validateRadioButtonsGivenPositionExistance(selectableRadioButtonPosition);
+		validateMoreRadioButtonsFound();
+		int count = 0;
+		boolean selected = false;
+		for (WebElement radioBtn : radiobuttons) {
+			count++;
+			if (positions.contains(count)) {
+				radiobutton = radioBtn;
+				if (select()) {
+					selected = true;
+					break;
+				}
+			}
+		}
+		if (selected) {
+			for (int i = 0; i < radiobuttons.size(); i++) {
+				if ((i + 1) != count) {
+					radiobutton = radiobuttons.get(i);
+					if (isSelected())
+						throw new ElementNotSelectableException(String.format(
+								"Once after selecting the radio button at the position %s, still found other radio button from the group are in selected state at the position %s, and the given group locator is %s",
+								selectableRadioButtonPosition, (i + 1), radiobuttonLocator.toString()));
+				}
+			}
+		}
+		return selected;
+	}
+
 	/**
 	 * Helps to select the radiobutton. If at all already selected, then keeps as
 	 * selected only without performing any action on it. But the note is- it
@@ -367,26 +405,22 @@ public class MksRadioButton extends LegacyElementsActions {
 	 * 
 	 * @throws AttributeNotFoundException
 	 */
-	/*public List<String> select(String... radiobuttonLabels) throws AttributeNotFoundException {
-
-		Map<WebElement, String> validRadioButtonsForLabel = validateRadioButtonsForGivenLabelAtttribure();
-
-		List<String> nonSelectedLabels = new ArrayList<String>();
-		for (String label : radiobuttonLabels) {
-			boolean selected = false;
-			for (WebElement rdobtn : validRadioButtonsForLabel.keySet()) {
-				if (label.equals(validRadioButtonsForLabel.get(rdobtn))) {
-					radiobutton = rdobtn;
-					selected = select();
-					break;
-				}
-			}
-			if (!selected)
-				nonSelectedLabels.add(label);
-		}
-
-		return nonSelectedLabels;
-	}*/
+	/*
+	 * public List<String> select(String... radiobuttonLabels) throws
+	 * AttributeNotFoundException {
+	 * 
+	 * Map<WebElement, String> validRadioButtonsForLabel =
+	 * validateRadioButtonsForGivenLabelAtttribure();
+	 * 
+	 * List<String> nonSelectedLabels = new ArrayList<String>(); for (String label :
+	 * radiobuttonLabels) { boolean selected = false; for (WebElement rdobtn :
+	 * validRadioButtonsForLabel.keySet()) { if
+	 * (label.equals(validRadioButtonsForLabel.get(rdobtn))) { radiobutton = rdobtn;
+	 * selected = select(); break; } } if (!selected) nonSelectedLabels.add(label);
+	 * }
+	 * 
+	 * return nonSelectedLabels; }
+	 */
 
 	/**
 	 * Helps to select the radiobutton, If at all already selected, then keeps as
@@ -395,7 +429,8 @@ public class MksRadioButton extends LegacyElementsActions {
 	 * is having the provided label in the UI.
 	 * 
 	 * @param selectableRadioButtonsPositions
-	 * @return If all provided positioned are selected then returns with true; else returns false;
+	 * @return If all provided positioned are selected then returns with true; else
+	 *         returns false;
 	 */
 	public boolean select(String radiobuttonLabel) throws AttributeNotFoundException {
 
@@ -408,7 +443,51 @@ public class MksRadioButton extends LegacyElementsActions {
 		}
 		return false;
 	}
-	
+
+	/**
+	 * Helps to select the radiobutton, If at all already selected, then keeps as
+	 * selected only without performing any action on it. But the note is- it
+	 * identifies radiobutton elements to perform action, only if the given locator
+	 * identifies more than one radio button element in the UI, so that it can cross
+	 * check other radio buttons becomes un selected once after selecting the given
+	 * labeled radio button.
+	 * 
+	 * @param radiobuttonLabel
+	 * @return If given radio button is selected then returns true, else returns
+	 *         false;
+	 * @throws AttributeNotFoundException
+	 * @throws InvalidAlgorithmParameterException Once after selecting given
+	 *                                            element, if other radio button
+	 *                                            from given group is still being
+	 *                                            selected, then throws exception.
+	 */
+	public boolean selectFromGroup(String radiobuttonLabel)
+			throws AttributeNotFoundException, InvalidAlgorithmParameterException {
+
+		Map<WebElement, String> validRadioButtonsForLabel = validateRadioButtonsForGivenLabelAtttribure();
+		validateMoreRadioButtonsFound();
+		boolean selected = false;
+		for (WebElement rdobtn : validRadioButtonsForLabel.keySet()) {
+			if (radiobuttonLabel.equals(validRadioButtonsForLabel.get(rdobtn))) {
+				radiobutton = rdobtn;
+				selected = select();
+			}
+		}
+		if (selected) {
+			for (WebElement rdobtn : validRadioButtonsForLabel.keySet()) {
+				if (!(radiobuttonLabel.equals(validRadioButtonsForLabel.get(rdobtn)))) {
+					radiobutton = rdobtn;
+					if (isSelected())
+						throw new ElementNotSelectableException(String.format(
+								"Once after selecting the radio button with the label %s, still found other radio button from the group is in selected state and the label of that is %s, where the given group locator is %s",
+								radiobuttonLabel, validRadioButtonsForLabel.get(rdobtn),
+								radiobuttonLocator.toString()));
+				}
+			}
+		}
+		return selected;
+	}
+
 	/**
 	 * Helps to un select the selected radiobutton. If at all already un selected,
 	 * then keeps as un selected only without performing any action on it.
@@ -417,20 +496,11 @@ public class MksRadioButton extends LegacyElementsActions {
 	 *         action on it then it returns false; else if successfully un selected
 	 *         then returns true.
 	 */
-	/*public boolean unSelect() {
-		if (radiobutton.isSelected()) {
-			click();
-		}
-		if (radiobutton.isSelected()) {
-			jsClick();
-		}
-		if (radiobutton.isSelected()) {
-			leftClick();
-		}
-		if (radiobutton.isSelected())
-			return false;
-		return true;
-	}*/
+	/*
+	 * public boolean unSelect() { if (radiobutton.isSelected()) { click(); } if
+	 * (radiobutton.isSelected()) { jsClick(); } if (radiobutton.isSelected()) {
+	 * leftClick(); } if (radiobutton.isSelected()) return false; return true; }
+	 */
 
 	/**
 	 * Helps to un select the radiobutton. If at all already un selected, then keeps
@@ -445,21 +515,16 @@ public class MksRadioButton extends LegacyElementsActions {
 	 *         chckbox un selection action then such radiobuttons positions are
 	 *         returned in the form of List<Integer>
 	 */
-	/*public List<Integer> unSelect(int... selectableRadioButtonsPositions) {
-
-		List<Integer> positions = validateRadioButtonsGivenPositionExistance(selectableRadioButtonsPositions);
-		List<Integer> nonSelectedPositions = new ArrayList<>();
-		int count = 0;
-		for (WebElement radioBtn : radiobuttons) {
-			count++;
-			if (positions.contains(count)) {
-				radiobutton = radioBtn;
-				if (!unSelect())
-					nonSelectedPositions.add(count);
-			}
-		}
-		return nonSelectedPositions;
-	}*/
+	/*
+	 * public List<Integer> unSelect(int... selectableRadioButtonsPositions) {
+	 * 
+	 * List<Integer> positions =
+	 * validateRadioButtonsGivenPositionExistance(selectableRadioButtonsPositions);
+	 * List<Integer> nonSelectedPositions = new ArrayList<>(); int count = 0; for
+	 * (WebElement radioBtn : radiobuttons) { count++; if
+	 * (positions.contains(count)) { radiobutton = radioBtn; if (!unSelect())
+	 * nonSelectedPositions.add(count); } } return nonSelectedPositions; }
+	 */
 
 	/**
 	 * Helps to un select the radiobutton. If at all already un selected, then keeps
@@ -476,26 +541,21 @@ public class MksRadioButton extends LegacyElementsActions {
 	 * 
 	 * @throws AttributeNotFoundException
 	 */
-	/*public List<String> unSelect(String... radiobuttonLabels) throws AttributeNotFoundException {
-
-		Map<WebElement, String> validRadioButtonsForLabel = validateRadioButtonsForGivenLabelAtttribure();
-
-		List<String> selectedLabels = new ArrayList<String>();
-		for (String label : radiobuttonLabels) {
-			boolean selected = false;
-			for (WebElement rdobtn : validRadioButtonsForLabel.keySet()) {
-				if (label.equals(validRadioButtonsForLabel.get(rdobtn))) {
-					radiobutton = rdobtn;
-					selected = unSelect();
-					break;
-				}
-			}
-			if (!selected)
-				selectedLabels.add(label);
-		}
-
-		return selectedLabels;
-	}*/
+	/*
+	 * public List<String> unSelect(String... radiobuttonLabels) throws
+	 * AttributeNotFoundException {
+	 * 
+	 * Map<WebElement, String> validRadioButtonsForLabel =
+	 * validateRadioButtonsForGivenLabelAtttribure();
+	 * 
+	 * List<String> selectedLabels = new ArrayList<String>(); for (String label :
+	 * radiobuttonLabels) { boolean selected = false; for (WebElement rdobtn :
+	 * validRadioButtonsForLabel.keySet()) { if
+	 * (label.equals(validRadioButtonsForLabel.get(rdobtn))) { radiobutton = rdobtn;
+	 * selected = unSelect(); break; } } if (!selected) selectedLabels.add(label); }
+	 * 
+	 * return selectedLabels; }
+	 */
 
 	@Override
 	public boolean isSelected() {
@@ -565,6 +625,15 @@ public class MksRadioButton extends LegacyElementsActions {
 					radiobuttonLocator.toString(), labelAttributeName));
 		}
 		return validRadioButtonsForLabel;
+	}
+
+	private void validateMoreRadioButtonsFound() throws InvalidAlgorithmParameterException {
+		radiobuttons = Finder.findAll(radiobuttonLocator);
+		if (radiobuttons.size() < 2) {
+			throw new InvalidAlgorithmParameterException(String.format(
+					"Currently identified %s elements in the UI using %s locator. Alteast 2 elements should be identified to work on this action",
+					radiobuttons.size(), radiobuttonLocator));
+		}
 	}
 
 }
