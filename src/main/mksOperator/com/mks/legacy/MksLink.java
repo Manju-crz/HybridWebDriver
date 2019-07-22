@@ -2,6 +2,8 @@ package com.mks.legacy;
 
 import java.util.List;
 
+import javax.naming.directory.InvalidAttributesException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -246,7 +248,23 @@ public class MksLink extends LegacyElementsActions {
 		}
 	}
 	
-
+	/**
+	 * 
+	 * @return
+	 * @throws InvalidAttributesException
+	 */
+	public String getHrefLink() throws InvalidAttributesException {
+		if(link.getTagName().equals("a"))
+			return link.getAttribute("href");
+		else
+			throw new InvalidAttributesException(String.format("Given link locator should end with achor tag a, inorder to identify the value of href attribute. Currently given link locator is %s", linkLocator.toString()));
+	}
+	
+	//TO DO : Still required to do with validation code that, weather it is really opened in new tab.
+	public void openInNewTab() {
+		WdOperators.rightClickToNewTab(link);
+	}
+	
 	private String getExceptionMsg(String linkTxt) {
 		return String.format("There is no link element found for the link locator %s with the link text %s",
 				linkLocator.toString(), linkTxt);
@@ -257,6 +275,7 @@ public class MksLink extends LegacyElementsActions {
 				getExceptionMsg(linkTxt), textOccurrence);
 	}
 
+	
 	@Override
 	public boolean isSelected() {
 		if (!link.isSelected())

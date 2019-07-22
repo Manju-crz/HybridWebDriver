@@ -71,6 +71,14 @@ public class WdOperators {
     }
 
 
+    public static void rightClickToNewTab(WebElement element) {
+    	Actions action = new Actions(Connection.getDriver());
+        action.contextClick(element);
+        SoftSleeper.seconds(1);
+        action.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).build().perform();
+    }
+    
+    
     public static void clear(WebElement element) {
         logger.trace(String.format("Clearing element '%s' with class '%s'", element.getTagName(), element.getAttribute("class")));
         element.clear();

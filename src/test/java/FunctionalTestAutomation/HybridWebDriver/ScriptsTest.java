@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.activity.InvalidActivityException;
 import javax.management.AttributeNotFoundException;
+import javax.naming.directory.InvalidAttributesException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -217,7 +218,7 @@ public class ScriptsTest {
 
 	}
 
-	@Test
+	//@Test
 	public void testRadioButton() throws InvalidAlgorithmParameterException, AttributeNotFoundException {
 		
 		driver1 = Connection.launchBrowser(Browser.CHROME, "http://www.echoecho.com/htmlforms10.htm");
@@ -246,6 +247,7 @@ public class ScriptsTest {
 		SoftSleeper.seconds(2);
 		
 		
+		
 		System.out.println("Select cheese from grp : " + rd.selectFromGroup("Cheese"));
 		SoftSleeper.seconds(2);
 		System.out.println("Select cheese from grp : " + rd.selectFromGroup(1));
@@ -262,45 +264,14 @@ public class ScriptsTest {
 		
 	}
 	
-	
-	/*
-	 * @Test public void testConnection2() {
-	 * 
-	 * String checkBoxesXpath = "//input[@name='Checkbox']";
-	 * 
-	 * 
-	 * Connection con1 = new
-	 * Connection("https://html.com/attributes/input-disabled/");
-	 * con1.setMyDriver(con1); //driver1 =
-	 * Connection.launchBrowser("https://html.com/attributes/input-disabled/");
-	 * SoftSleeper.seconds(2); By disabledElement =
-	 * By.xpath("//h1[@class='title-page']/code"); By disabledinput =
-	 * By.xpath("//div[@class='render']/form/input"); System.out.
-	 * println("con.getMyDriver().findElements(disabledElement).size() : " +
-	 * con1.getMyDriver().findElements(disabledElement).size());
-	 * SoftSleeper.seconds(2); //Connection.getBrowserTitle();
-	 * SoftSleeper.seconds(3); MksCheckbox ch1 = new MksCheckbox(disabledElement);
-	 * System.out.println("ch.isSelected() is 11: " + ch1.isSelected());
-	 * System.out.println("ch.isDisplayed() is : 11" + ch1.isDisplayed());
-	 * System.out.println("ch.isEnabled() is : 11" + ch1.isEnabled());
-	 * 
-	 * 
-	 * 
-	 * Connection con = new Connection("http://www.echoecho.com/htmlforms09.htm");
-	 * SoftSleeper.seconds(2); con.setMyDriver(con); System.out.
-	 * println("con.getMyDriver().findElements(By.xpath(checkBoxesXpath)).size() : "
-	 * + con.getMyDriver().findElements(By.xpath(checkBoxesXpath)).size()); //driver
-	 * = Connection.launchBrowser(Browser.CHROME,
-	 * "http://www.echoecho.com/htmlforms09.htm"); SoftSleeper.seconds(2);
-	 * MksCheckbox ch = new MksCheckbox(By.xpath(checkBoxesXpath)); ch.leftClick(1,
-	 * 2, 3); System.out.println("clicked-----------------------------");
-	 * SoftSleeper.seconds(2); System.out.println("ch.isSelected() is : " +
-	 * ch.isSelected()); System.out.println("ch.isDisplayed() is : " +
-	 * ch.isDisplayed()); System.out.println("ch.isEnabled() is : " +
-	 * ch.isEnabled());
-	 * 
-	 * }
-	 */
+	@Test
+	public void testLink() throws InvalidAttributesException {
+		 Connection.launchBrowser("http://www.echoecho.com/htmlforms10.htm");
+		 MksLink lnk = new MksLink(By.xpath("//form[@action='dummy']/a"));
+		 System.out.println("lnk.getHrefLink() is : " + lnk.getHrefLink());
+		 lnk.openInNewTab();
+		 SoftSleeper.seconds(3);
+	}
 
 	@AfterMethod
 	public void afetrClassQuit() {
