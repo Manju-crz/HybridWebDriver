@@ -2,6 +2,7 @@ package com.mks.definitions;
 
 import java.util.List;
 
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 import com.mks.seluty.WdOperators;
@@ -65,5 +66,29 @@ public abstract class LegacyElementsActions implements LegacyElements{
 		}
 	}
 	
+
+	
+	public boolean isSelected(WebElement element) {
+		if (!element.isSelected())
+			return false;
+		return true;
+	}
+
+	public boolean isDisplayed(WebElement element) {
+		try {
+			if (element.isDisplayed())
+				return true;
+		} catch (StaleElementReferenceException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+
+	public boolean isEnabled(WebElement element) {
+		if (!element.isEnabled())
+			return false;
+		return true;
+	}
 	
 }

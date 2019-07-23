@@ -368,30 +368,20 @@ public class MksCheckbox extends LegacyElementsActions {
 		return selectedLabels;
 	}
 
-	@Override
-	public boolean isSelected() {
-		if (!checkbox.isSelected())
-			return false;
-		return true;
-	}
 
 	@Override
 	public boolean isDisplayed() {
-		try {
-			if (checkbox.isDisplayed())
-				return true;
-		} catch (StaleElementReferenceException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return false;
+		return isDisplayed(checkbox);
 	}
 
 	@Override
 	public boolean isEnabled() {
-		if (!checkbox.isEnabled())
-			return false;
-		return true;
+		return isEnabled(checkbox);
+	}
+
+	@Override
+	public boolean isSelected() {
+		return isSelected(checkbox);
 	}
 
 	/**

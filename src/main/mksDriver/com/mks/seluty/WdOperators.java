@@ -73,7 +73,7 @@ public class WdOperators {
 
     public static void rightClickToNewTab(WebElement element) {
     	Actions action = new Actions(Connection.getDriver());
-        action.contextClick(element);
+        action.contextClick(element).build().perform();
         SoftSleeper.seconds(1);
         action.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).build().perform();
     }

@@ -1,10 +1,12 @@
 package FunctionalTestAutomation.HybridWebDriver;
 
+import java.awt.AWTException;
 import java.security.InvalidAlgorithmParameterException;
 import java.util.List;
 
 import javax.activity.InvalidActivityException;
 import javax.management.AttributeNotFoundException;
+import javax.naming.LinkException;
 import javax.naming.directory.InvalidAttributesException;
 
 import org.openqa.selenium.By;
@@ -33,7 +35,6 @@ public class ScriptsTest {
 	static By firstCheckbox = By.xpath("(//input[@type='checkbox'])[1]");
 	static By secondCheckbox = By.xpath("(//input[@type='checkbox'])[2]");
 	
-	
 	//@Test
 	public void testForIsDisplayed() {
 		WebDriver driver2 = Connection.launchBrowser("https://www.binance.com/en/login");
@@ -49,7 +50,6 @@ public class ScriptsTest {
 		//currencyElement = Finder.find(firstCurrencyType);
 		System.out.println("currencyElement.isDisplayed() : " + new MksCheckbox(firstCurrencyType).isDisplayed());
 	}
-	
 	
 	//@Test
 	public void testForAttributesTest() {
@@ -72,7 +72,6 @@ public class ScriptsTest {
 		System.out.println("firstSixElements.get(0).getAttribute() is : " + firstSixElements.get(4).getAttribute("value"));
 		System.out.println("firstSixElements.get(0).getAttribute() is : " + firstSixElements.get(4).getAttribute("checked"));
 		String res = firstSixElements.get(4).getAttribute("kicked");
-				
 		
 	}
 	
@@ -127,7 +126,6 @@ public class ScriptsTest {
 		SoftSleeper.seconds(5);
 		
 	}
-
 
 	//@Test
 	public void testAdvCheckBox() throws InvalidAlgorithmParameterException, AttributeNotFoundException {
@@ -265,14 +263,25 @@ public class ScriptsTest {
 	}
 	
 	@Test
-	public void testLink() throws InvalidAttributesException {
-		 Connection.launchBrowser("http://www.echoecho.com/htmlforms10.htm");
+	public void testLink() throws InvalidAttributesException, AWTException {
+		 driver = Connection.launchBrowser("http://www.echoecho.com/htmlforms10.htm");
 		 MksLink lnk = new MksLink(By.xpath("//form[@action='dummy']/a"));
 		 System.out.println("lnk.getHrefLink() is : " + lnk.getHrefLink());
-		 lnk.openInNewTab();
+		 try {
+			lnk.openInNewTab();
+		} catch (LinkException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		 SoftSleeper.seconds(3);
+		 
+		 System.out.println("Size of the table is : " + driver.findElement(By.xpath("//td[@class='table8'][contains(text(),'HTML')]")).getText().trim());
+		 String checkBoxXpaths = "//input[@type='checkbox']";
+		 System.out.println("Checkboxes size is : " + driver.findElements(By.xpath(checkBoxXpaths)).size());
+		 
 	}
 
+	
 	@AfterMethod
 	public void afetrClassQuit() {
 

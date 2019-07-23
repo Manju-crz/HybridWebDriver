@@ -259,29 +259,19 @@ public class MksButton extends LegacyElementsActions {
 
 
 	@Override
-	public boolean isSelected() {
-		if (!button.isSelected())
-			return false;
-		return true;
-	}
-
-	@Override
 	public boolean isDisplayed() {
-		try {
-			if (button.isDisplayed())
-				return true;
-		} catch (StaleElementReferenceException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return false;
+		return isDisplayed(button);
 	}
 
 	@Override
 	public boolean isEnabled() {
-		if (!button.isEnabled())
-			return false;
-		return true;
+		return isEnabled(button);
 	}
+
+	@Override
+	public boolean isSelected() {
+		return isSelected(button);
+	}
+
 	
 }
