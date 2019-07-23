@@ -15,10 +15,10 @@ Hybrid Framework
 		com.mks.exceptions
 		com.mks.holders
 		com.mks.seluty
+		com.mks.knob
 	src/main/mksOperator
 		com.mks.advanced
 		com.mks.definitions
 		com.mks.influence
 		com.mks.influence.calendars
 		com.mks.legacy
-
