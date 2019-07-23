@@ -1,5 +1,7 @@
 package com.mks.definitions;
 
+import org.openqa.selenium.WebElement;
+
 public interface LegacyElements {
 
 	public static enum ClickTypes {
@@ -26,5 +28,11 @@ public interface LegacyElements {
 	 * @return If selected, then returns true; else returns false.
 	 */
 	public boolean isSelected();
+
+	boolean isEnabled(WebElement element);
+
+	boolean isDisplayed(WebElement element);
+
+	boolean isSelected(WebElement element);
 
 }
