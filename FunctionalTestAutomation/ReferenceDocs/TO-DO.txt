@@ -23,7 +23,7 @@ DONE: 17. Required to do new window switch code to do as below:
         driver.switchTo().window(tab);
         System.out.println(driver.getTitle());
         driver.quit();
-18. ArmWindows- some methods required proper testing and are: switchToWindow, getAllActiveWindows, switchToNewWindow.
-19. ArmWindows- Have to code for identifying the new window with window title and then to switch to that window.
+18. ArmWindows- some methods required proper testing and are: switchToOtherWindow, switchToWindow, getAllActiveWindows, switchToNewWindow.
+DONE: 19. ArmWindows- Have to code for identifying the new window with window title and then to switch to that window.
 20. Currently Wdoperators- rightClickToNewTab(WebElement element) method is not working. Its good to avoid it or resolve it.
 

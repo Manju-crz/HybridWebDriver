@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.ws.rs.NotFoundException;
 
+import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
@@ -95,6 +96,33 @@ public class ArmWindows {
 			throw new NotFoundException(String.format(
 					"Did not find the window with the given identification %s, and the existing windows are",
 					windowIdentification, allWindows.toString()));
+	}
+
+	/**
+	 * It helps to switch to the required window if existing actively.
+	 * 
+	 * @param windowTitle to which window title needs the switch
+	 * @return The current window title is returned which would be active before the
+	 *         switch.
+	 */
+	public static String switchToOtherWindow(String windowTitle) {
+		String currentWindowTitle = Connection.getDriver().getTitle();
+		if (windowTitle.trim().equals(currentWindowTitle.trim()))
+			throw new InvalidArgumentException(String.format(
+					"Driver instance current active window title is %s, and the given parameter to switch to other window title is %s. Both are being same, in order to switch to other window it has to be other window's title",
+					currentWindowTitle, windowTitle));
+		List<String> allwindows = getAllActiveWindows();
+		boolean switched = false;
+		for (String str : allwindows) {
+			switchToWindow(str);
+			if (Connection.getDriver().getTitle().trim().equals(windowTitle.trim())) {
+				switched = true;
+				break;
+			}
+		}
+		if (!switched)
+			throw new NotFoundException(String.format("Did not find the other window with the title %s.", windowTitle));
+		return currentWindowTitle;
 	}
 
 }
