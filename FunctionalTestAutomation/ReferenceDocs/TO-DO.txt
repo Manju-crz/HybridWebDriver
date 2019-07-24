@@ -7,23 +7,18 @@ DONE: 10. Connection class has to turn to non static and completely objcet orien
 DONE: 11. MksLink - Check if it possible to write getURL code with href attribute if existing.
 DONE: 15. MksLink - write code to do right click and open in new tab.
 DONE: 16. Try to make isSelected, Displayed and Enabled methods as common method in LegacyElements abstract class with an WebElement argument.
-
-4. Required MksAdvCheckbox all methods tested properly with flipkart.com. Especially click(String.. texts) method required to test when we are passing only one text. Wehther it returns false or null webelement. Its good if returs false. We can test it with flipkart.com when we complete coding of menus actions. Else it is difficult to test with other elements.
+DONE: 19. ArmWindows- Have to code for identifying the new window with window title and then to switch to that window.
 DONE: 7. Current completed legacy should become non static with all its class objects.
+DONE: 17. Required to do new window switch code to do.
+DONE: 18. ArmWindows- some methods required proper testing and are: switchToOtherWindow, switchToWindow, getAllActiveWindows, switchToNewWindow.
+
+IP: 4. Required MksAdvCheckbox all methods tested properly with flipkart.com. Especially click(String.. texts) method required to test when we are passing only one text. Wehther it returns false or null webelement. Its good if returs false. We can test it with flipkart.com when we complete coding of menus actions. Else it is difficult to test with other elements.
 8. MksRadioButton - current code with attribute value - methods utilize attibute values to select, need to be thrown as exception in case of error.
 9. MksCheckbox - current code with attribute value - methods utilize attibute values to select, need to be thrown as exception in case of error.
 12. Required restrictions to all methods with exceptions in legacy classes.
 13. Connection clas exe files path identification should work based on passed input from properties file. Moreover, if there is no file existing, should be able to indetify and pickup the file from downloads folder.
 14. Try to seperate MksCheckbox(By locator) and MksCheckbox(By locator, txt) constructor relevant methods access specific to each.
-DONE: 17. Required to do new window switch code to do as below:
-		Set<String> winid = driver.getWindowHandles();
-        Iterator<String> iter = winid.iterator();
-        iter.next();
-        String tab = iter.next();
-        driver.switchTo().window(tab);
-        System.out.println(driver.getTitle());
-        driver.quit();
-18. ArmWindows- some methods required proper testing and are: switchToOtherWindow, switchToWindow, getAllActiveWindows, switchToNewWindow.
-DONE: 19. ArmWindows- Have to code for identifying the new window with window title and then to switch to that window.
 20. Currently Wdoperators- rightClickToNewTab(WebElement element) method is not working. Its good to avoid it or resolve it.
+21. Make isSelected isvisible and all availability in LegacyElementsActions class only, by having element variable in that abstract class. Remove all those methods from all sub classes.
 
+22. MksAdvCheckbox- Also write a method select(String.. texts); deselect(String.. texts)

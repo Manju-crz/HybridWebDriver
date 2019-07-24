@@ -34,13 +34,16 @@ public class ArmWindows {
 	public static String openNewTab() {
 		int currentWindowsSize = getActiveWindowsSize();
 		WebDriver driver = Connection.getDriver();
+		ArrayList<String> preTabs = new ArrayList<String>(driver.getWindowHandles());
 		((JavascriptExecutor) driver).executeScript("window.open()");
 		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
 		if ((currentWindowsSize + 1) != tabs.size())
 			throw new NotFoundException(String.format(
 					"Already existing windows count was %s, and after the new tab action performed, did not get the one incremented count of windows. Where the found post action windows size is %s",
 					currentWindowsSize, tabs.size()));
-		driver.switchTo().window(tabs.get(1));
+		ArrayList<String> postTabs = new ArrayList<String>(driver.getWindowHandles());
+		postTabs.removeAll(preTabs);
+		ArmWindows.switchToWindow(postTabs.get(0));
 		return tabs.get(0);
 	}
 
@@ -51,13 +54,13 @@ public class ArmWindows {
 	 * 
 	 * @return Returns the window identification of last controlled one.
 	 */
-	public String switchToNewWindow() {
+	public static String switchToNewWindow() {
 		int currentWindowsSize = getActiveWindowsSize();
 		Set<String> winid = Connection.getDriver().getWindowHandles();
-		if ((currentWindowsSize + 1) != winid.size())
+		if (currentWindowsSize == 1)
 			throw new NotFoundException(String.format(
-					"Already existing windows count was %s, and after the new window click action performed, did not get the one incremented count of windows. Where the found post action windows size is %s",
-					currentWindowsSize, winid.size()));
+					"Only one window has been found while switching to new window, and the found window title is %s. Atleast 2 active windows required to switch to new window.",
+					Connection.getDriver().getTitle()));
 		Iterator<String> iter = winid.iterator();
 		String parent = iter.next();
 		String tab = iter.next();
@@ -87,8 +90,9 @@ public class ArmWindows {
 	 * @param windowIdentification If doesn't find given window identification from
 	 *                             active windows list then throws exception.
 	 */
-	public static void switchToWindow(String windowIdentification) {
+	public static String switchToWindow(String windowIdentification) {
 
+		String str = Connection.getDriver().getWindowHandle();
 		List<String> allWindows = getAllActiveWindows();
 		if (allWindows.contains(windowIdentification))
 			Connection.getDriver().switchTo().window(windowIdentification);
@@ -96,16 +100,25 @@ public class ArmWindows {
 			throw new NotFoundException(String.format(
 					"Did not find the window with the given identification %s, and the existing windows are",
 					windowIdentification, allWindows.toString()));
+		return str;
 	}
 
 	/**
-	 * It helps to switch to the required window if existing actively.
+	 * It helps to switch to the required window if existing actively. Note: If
+	 * there are more than one active windows existing with same window title, then
+	 * will switch to the first found window with that title.
 	 * 
 	 * @param windowTitle to which window title needs the switch
+	 * @InvalidArgumentException If the provided input window title and the current
+	 *                           active window title is same, then will throw an
+	 *                           exception.
+	 * @NotFoundException If the given window title not at all existing in the
+	 *                    active windows titles list, then will throw the exception
 	 * @return The current window title is returned which would be active before the
 	 *         switch.
 	 */
 	public static String switchToOtherWindow(String windowTitle) {
+
 		String currentWindowTitle = Connection.getDriver().getTitle();
 		if (windowTitle.trim().equals(currentWindowTitle.trim()))
 			throw new InvalidArgumentException(String.format(

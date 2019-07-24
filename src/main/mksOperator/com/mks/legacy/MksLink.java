@@ -66,7 +66,7 @@ public class MksLink extends LegacyElementsActions {
 		links = Finder.findAll(linkLocator);
 		System.out.println("All links are : " + links.size());
 		for (WebElement lnk : links) {
-			System.out.println("lnk.getText().trim() : " + lnk.getText().trim());
+			//System.out.println("lnk.getText().trim() : " + lnk.getText().trim());
 			if (lnk.getText().trim().equals(linkText)) {
 				return lnk;
 			}
@@ -331,7 +331,7 @@ public class MksLink extends LegacyElementsActions {
 	 *                                    throw exception.
 	 * @throws LinkException              If href value finds then works fine, else
 	 *                                    throws exception
-	 * @return
+	 * @return Returns the window identification of last controlled one.
 	 */
 	public String openInNewTab(String linkText) throws InvalidAttributesException, LinkException {
 		link = getLink(linkText);

@@ -2,6 +2,8 @@ package FunctionalTestAutomation.HybridWebDriver;
 
 import java.awt.AWTException;
 import java.security.InvalidAlgorithmParameterException;
+import java.security.spec.InvalidParameterSpecException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.activity.InvalidActivityException;
@@ -19,6 +21,7 @@ import org.testng.annotations.Test;
 import com.mks.advanced.MksAdvCheckbox;
 import com.mks.connectors.Connection;
 import com.mks.connectors.Connection.Browser;
+import com.mks.knob.ArmWindows;
 import com.mks.legacy.MksCheckbox;
 import com.mks.legacy.MksLink;
 import com.mks.legacy.MksRadioButton;
@@ -262,7 +265,7 @@ public class ScriptsTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testLink() throws InvalidAttributesException, AWTException {
 		 driver = Connection.launchBrowser("http://www.echoecho.com/htmlforms10.htm");
 		 MksLink lnk = new MksLink(By.xpath("//form[@action='dummy']/a"));
@@ -280,7 +283,84 @@ public class ScriptsTest {
 		 System.out.println("Checkboxes size is : " + driver.findElements(By.xpath(checkBoxXpaths)).size());
 		 
 	}
-
+	
+	//@Test
+	public void testWindows() throws InvalidAttributesException, LinkException {
+		
+		driver = Connection.launchBrowser("http://www.echoecho.com/htmlforms10.htm");
+		By links = By.xpath("//body[@class='thebody']//a");
+		
+		MksLink link = new MksLink(links);
+		String firstWindowTitle = driver.getTitle();
+		System.out.println("firstWindowTitle is : " + firstWindowTitle);
+		System.out.println("-------------------------------------------");
+		String firstWindow = link.openInNewTab("check boxes");
+		SoftSleeper.seconds(2);
+		String secindWindowTitle = driver.getTitle();
+		System.out.println("secindWindowTitle is : " + secindWindowTitle);
+		System.out.println("-------------------------------------------");
+		
+		String secondWindow = ArmWindows.switchToWindow(firstWindow);
+		link.openInNewTab("here");
+		SoftSleeper.seconds(2);
+		String thirdWindowTitle = driver.getTitle();
+		System.out.println("thirdWindowTitle is : " + thirdWindowTitle);
+		System.out.println("-------------------------------------------");
+		
+		String thirdWindow = ArmWindows.switchToWindow(firstWindow);
+		link.openInNewTab("About EchoEcho");
+		SoftSleeper.seconds(2);
+		String fourthWindowTitle = driver.getTitle();
+		System.out.println("fourthWindowTitle is : " + fourthWindowTitle);
+		System.out.println("-------------------------------------------");
+		
+		ArmWindows.switchToWindow(secondWindow);
+		secindWindowTitle = driver.getTitle();
+		System.out.println("secindWindowTitle again is : " + secindWindowTitle);
+		System.out.println("-------------------------------------------");
+		
+		/*String secindWindowTitle = driver.getTitle();
+		System.out.println("secindWindowTitle is : " + secindWindowTitle);
+		String secondCheckboxWindow = ArmWindows.switchToWindow(firstWindow);
+		System.out.println("link.getAllLinksText() is : " + link.getAllLinksText());
+		String firstWindowAgain = ArmWindows.switchToOtherWindow(secindWindowTitle);
+		System.out.println("link.getAllLinksText() is : " + new MksLink(links).getAllLinksText());
+		SoftSleeper.seconds(20, "");*/
+		
+		
+		
+	}
+	
+	
+	@Test
+	public void testAdvCheckbox() throws InvalidParameterSpecException {
+		
+		driver = Connection.launchBrowser("https://www.flipkart.com/mobile-phones-store?otracker=nmenu_sub_Electronics_0_Mobiles");
+		By brand = By.xpath("//div[text()='Brand']");
+		By links = By.xpath("//body[@class='thebody']//a");
+		SoftSleeper.seconds(2);
+		WdOperators.scrollTo(Finder.find(brand), true);
+		SoftSleeper.seconds(5);
+		
+		By checkBoxesLocator = By.xpath("//label/input[@type='checkbox']");
+		By associatedLabelsLocator = By.xpath("//label/div[@class='_1GEhLw']");
+		
+		
+		MksAdvCheckbox adv = new MksAdvCheckbox(checkBoxesLocator, associatedLabelsLocator);
+		System.out.println("Get checkbox : " + adv.getCheckbox("2GB"));
+		WdOperators.jsClick(adv.getCheckbox("2 GB"));
+		SoftSleeper.seconds(5);
+		
+		List<String> allCheckboxText = new ArrayList<String>();
+		allCheckboxText = adv.getAllCheckboxsText();
+		System.out.println("allCheckboxText size : " + allCheckboxText.size());
+		System.out.println("allCheckboxText :: " + allCheckboxText.toString());
+		
+		SoftSleeper.seconds(5);
+		
+		
+	}
+	
 	
 	@AfterMethod
 	public void afetrClassQuit() {
