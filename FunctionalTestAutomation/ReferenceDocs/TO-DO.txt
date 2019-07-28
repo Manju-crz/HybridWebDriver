@@ -12,7 +12,7 @@ DONE: 7. Current completed legacy should become non static with all its class ob
 DONE: 17. Required to do new window switch code to do.
 DONE: 18. ArmWindows- some methods required proper testing and are: switchToOtherWindow, switchToWindow, getAllActiveWindows, switchToNewWindow.
 
-IP: 4. Required MksAdvCheckbox all methods tested properly with flipkart.com. Especially click(String.. texts) method required to test when we are passing only one text. Wehther it returns false or null webelement. Its good if returs false. We can test it with flipkart.com when we complete coding of menus actions. Else it is difficult to test with other elements.
+DONE: 4. Required MksAdvCheckbox all methods tested properly with flipkart.com. Especially click(String.. texts) method required to test when we are passing only one text. Wehther it returns false or null webelement. Its good if returs false. We can test it with flipkart.com when we complete coding of menus actions. Else it is difficult to test with other elements. = Method been removed
 8. MksRadioButton - current code with attribute value - methods utilize attibute values to select, need to be thrown as exception in case of error.
 9. MksCheckbox - current code with attribute value - methods utilize attibute values to select, need to be thrown as exception in case of error.
 12. Required restrictions to all methods with exceptions in legacy classes.
@@ -22,3 +22,10 @@ IP: 4. Required MksAdvCheckbox all methods tested properly with flipkart.com. Es
 21. Make isSelected isvisible and all availability in LegacyElementsActions class only, by having element variable in that abstract class. Remove all those methods from all sub classes.
 
 22. MksAdvCheckbox- Also write a method select(String.. texts); deselect(String.. texts)
+DONE: 23. Rename MksAdvCheckbox to MksCheckboxAdv
+
+
+
+//div[@class='_1V_p']
+
+

@@ -18,10 +18,11 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import com.mks.advanced.MksAdvCheckbox;
+import com.mks.advanced.MksCheckboxAdv;
 import com.mks.connectors.Connection;
 import com.mks.connectors.Connection.Browser;
 import com.mks.knob.ArmWindows;
+import com.mks.legacy.MksButton;
 import com.mks.legacy.MksCheckbox;
 import com.mks.legacy.MksLink;
 import com.mks.legacy.MksRadioButton;
@@ -332,8 +333,8 @@ public class ScriptsTest {
 	}
 	
 	
-	@Test
-	public void testAdvCheckbox() throws InvalidParameterSpecException {
+	//@Test
+	public void testAdvCheckboxFilpkart() throws InvalidParameterSpecException {
 		
 		driver = Connection.launchBrowser("https://www.flipkart.com/mobile-phones-store?otracker=nmenu_sub_Electronics_0_Mobiles");
 		By brand = By.xpath("//div[text()='Brand']");
@@ -342,25 +343,97 @@ public class ScriptsTest {
 		WdOperators.scrollTo(Finder.find(brand), true);
 		SoftSleeper.seconds(5);
 		
-		By checkBoxesLocator = By.xpath("//label/input[@type='checkbox']");
-		By associatedLabelsLocator = By.xpath("//label/div[@class='_1GEhLw']");
+		By checkBoxesLocator = By.xpath("//div[@class='_4IiNRh _2mtkou']//label/input[@type='checkbox']");
+		By associatedLabelsLocator = By.xpath("//div[@class='_4IiNRh _2mtkou']//label/div[@class='_1GEhLw']");
 		
 		
-		MksAdvCheckbox adv = new MksAdvCheckbox(checkBoxesLocator, associatedLabelsLocator);
+		MksCheckboxAdv adv = new MksCheckboxAdv(checkBoxesLocator, associatedLabelsLocator);
 		System.out.println("Get checkbox : " + adv.getCheckbox("2GB"));
 		WdOperators.jsClick(adv.getCheckbox("2 GB"));
 		SoftSleeper.seconds(5);
 		
 		List<String> allCheckboxText = new ArrayList<String>();
-		allCheckboxText = adv.getAllCheckboxsText();
+		allCheckboxText = adv.getAllCheckboxesText();
 		System.out.println("allCheckboxText size : " + allCheckboxText.size());
 		System.out.println("allCheckboxText :: " + allCheckboxText.toString());
 		
+		SoftSleeper.seconds(2);
+		WdOperators.scrollTo(Finder.find(brand), true);
+		SoftSleeper.seconds(3);
+		adv = new MksCheckboxAdv(checkBoxesLocator, associatedLabelsLocator);
+		adv.click("4 GB");
+		
+		SoftSleeper.seconds(2);
+		WdOperators.scrollTo(Finder.find(brand), true);
+		SoftSleeper.seconds(3);
+		adv = new MksCheckboxAdv(checkBoxesLocator, associatedLabelsLocator);
+		
+		SoftSleeper.seconds(2);
+		WdOperators.scrollTo(Finder.find(brand), true);
+		SoftSleeper.seconds(3);
+		adv = new MksCheckboxAdv(checkBoxesLocator, associatedLabelsLocator);
 		SoftSleeper.seconds(5);
-		
-		
 	}
 	
+	
+	//@Test
+	public void testAdvCheckboxPaytm() throws InvalidParameterSpecException, AttributeNotFoundException {
+		
+		driver = Connection.launchBrowser("https://paytmmall.com/mobiles-tablets-llpid-117237?brand=2578&category=6224&use_mw=1&src=store&page=1");
+		By brand = By.xpath("//div[contains(text(),'Primary Camera')]");
+		
+		WdOperators.scrollTo(Finder.find(brand), true);
+		SoftSleeper.seconds(5);
+		
+		By checkBoxesLocator = By.xpath("//div[@class='_1V_p']/input");
+		By associatedLabelsLocator = By.xpath("//div[@class='_1V_p']//span[@class='labelName']");
+		
+		MksCheckboxAdv adv = new MksCheckboxAdv(checkBoxesLocator, associatedLabelsLocator);
+		System.out.println("Get checkbox : " + adv.getCheckbox("2GB"));
+		WdOperators.jsClick(adv.getCheckbox("A&K"));
+		SoftSleeper.seconds(5);
+		
+		List<String> allCheckboxText = new ArrayList<String>();
+		allCheckboxText = adv.getAllCheckboxesText();
+		System.out.println("allCheckboxText size : " + allCheckboxText.size());
+		System.out.println("allCheckboxText :: " + allCheckboxText.toString());
+		
+		SoftSleeper.seconds(2);
+		WdOperators.scrollTo(Finder.find(brand), true);
+		SoftSleeper.seconds(3);
+		adv = new MksCheckboxAdv(checkBoxesLocator, associatedLabelsLocator);
+		adv.leftClick("Adcom");
+		
+		SoftSleeper.seconds(2);
+		WdOperators.scrollTo(Finder.find(brand), true);
+		SoftSleeper.seconds(3);
+		adv = new MksCheckboxAdv(checkBoxesLocator, associatedLabelsLocator);
+		System.out.println("adv.click() :: "  + adv.jsClick("Apple", "Asus"));
+		
+		SoftSleeper.seconds(2);
+		WdOperators.scrollTo(Finder.find(brand), true);
+		SoftSleeper.seconds(3);
+		adv = new MksCheckboxAdv(checkBoxesLocator, associatedLabelsLocator);
+		System.out.println("adv.click() :: "  + adv.jsClick("BlackBerry", "No GB"));
+		SoftSleeper.seconds(5);
+	}
+	
+	//@Test
+	public void testButton() {
+		
+		driver = Connection.launchBrowser("http://the-internet.herokuapp.com/");
+		By uploadLink = By.linkText("File Upload");
+		new MksLink(uploadLink).click();
+		
+		By uploadButton = By.xpath("//input[@id='file-submit']");
+		MksButton btn = new MksButton(uploadButton);
+		SoftSleeper.seconds(3);
+		System.out.println("btn test : " + btn.getValue());
+		
+		btn.click();
+		SoftSleeper.seconds(3);
+		
+	}
 	
 	@AfterMethod
 	public void afetrClassQuit() {

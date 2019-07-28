@@ -14,34 +14,30 @@ import com.mks.seluty.WdOperators;
 
 public class MksButton extends LegacyElementsActions {
 
-	private By buttonLocator = null;
-	private WebElement button = null;
-	private List<WebElement> buttons = null;
-
 	public MksButton(By locator) {
-		buttonLocator = locator;
-		button = Finder.find(buttonLocator);
+		elementLocator = locator;
+		element = Finder.find(elementLocator);
 	}
 
 	/**
 	 * Given button will be clicked
 	 */
-	public void click() {
-		button.click();
-	}
+	/*
+	 * public void click() { element.click(); }
+	 */
 
 	/**
 	 * Given button will be clicked with JavaScriptExecutor
 	 */
 	public void jsClick() {
-		WdOperators.jsClick(button);
+		WdOperators.jsClick(element);
 	}
 
 	/**
 	 * Given button will be mouse left clicked
 	 */
 	public void leftClick() {
-		WdOperators.clickOnLocation(button, 0, 0);
+		WdOperators.clickOnLocation(element, 0, 0);
 	}
 	
 	/**
@@ -52,9 +48,9 @@ public class MksButton extends LegacyElementsActions {
 	 * @return If no button identified, then returns null.
 	 */
 	public WebElement getButton(String buttonText) {
-		buttons = Finder.findAll(buttonLocator);
-		System.out.println("All buttons are : " + buttons.size());
-		for (WebElement btn : buttons) {
+		elements = Finder.findAll(elementLocator);
+		System.out.println("All buttons are : " + elements.size());
+		for (WebElement btn : elements) {
 			System.out.println("btn.getText().trim() : " + btn.getText().trim());
 			if (btn.getText().trim().equals(buttonText)) {
 				return btn;
@@ -68,7 +64,7 @@ public class MksButton extends LegacyElementsActions {
 	 * @return
 	 */
 	public String getButtonText() {
-		return WdOperators.getText(button);
+		return WdOperators.getText(element);
 	}
 
 	/**
@@ -77,7 +73,7 @@ public class MksButton extends LegacyElementsActions {
 	 */
 	public List<String> getAllButtonsText() {
 		
-		return WdOperators.getTextOfElements(Finder.findAll(buttonLocator));
+		return WdOperators.getTextOfElements(Finder.findAll(elementLocator));
 	}
 	
 	/**
@@ -98,9 +94,9 @@ public class MksButton extends LegacyElementsActions {
 	public WebElement getButton(String buttonText, int ofButtonTextOccurrence) {
 		if (ofButtonTextOccurrence < 1)
 			throw new InvalidArgumentException(String.format("The button text %s position should be greater than zero, on which tried to perform action. Currently given position occurrence is %s", buttonText, ofButtonTextOccurrence));
-		buttons = Finder.findAll(buttonLocator);
+		elements = Finder.findAll(elementLocator);
 		int count = 0;
-		for (WebElement btn : buttons) {
+		for (WebElement btn : elements) {
 			if (btn.getText().trim().equals(buttonText)) {
 				count++;
 				if (count == ofButtonTextOccurrence) {
@@ -123,11 +119,11 @@ public class MksButton extends LegacyElementsActions {
 	 */
 	public void click(String buttonText) {
 
-		button = getButton(buttonText);
-		if (button == null)
+		element = getButton(buttonText);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(buttonText));
 		else {
-			button.click();
+			element.click();
 		}
 
 	}
@@ -148,11 +144,11 @@ public class MksButton extends LegacyElementsActions {
 	 *         returns false.
 	 */
 	public void click(String buttonText, int ofButtonTextOccurrence) {
-		button = getButton(buttonText, ofButtonTextOccurrence);
-		if (button == null)
+		element = getButton(buttonText, ofButtonTextOccurrence);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(buttonText, ofButtonTextOccurrence));
 		else {
-			button.click();
+			element.click();
 		}
 	}
 
@@ -168,11 +164,11 @@ public class MksButton extends LegacyElementsActions {
 	 */
 	public void leftClick(String buttonText) {
 
-		button = getButton(buttonText);
-		if (button == null)
+		element = getButton(buttonText);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(buttonText));
 		else {
-			WdOperators.clickOnLocation(button, 0, 0);
+			WdOperators.clickOnLocation(element, 0, 0);
 		}
 	}
 
@@ -193,11 +189,11 @@ public class MksButton extends LegacyElementsActions {
 	 */
 	public void leftClick(String buttonText, int ofButtonTextOccurrence) {
 
-		button = getButton(buttonText, ofButtonTextOccurrence);
-		if (button == null)
+		element = getButton(buttonText, ofButtonTextOccurrence);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(buttonText, ofButtonTextOccurrence));
 		else {
-			WdOperators.clickOnLocation(button, 0, 0);
+			WdOperators.clickOnLocation(element, 0, 0);
 		}
 	}
 	
@@ -213,11 +209,11 @@ public class MksButton extends LegacyElementsActions {
 	 */
 	public void jsClick(String buttonText) {
 
-		button = getButton(buttonText);
-		if (button == null)
+		element = getButton(buttonText);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(buttonText));
 		else {
-			WdOperators.jsClick(button);
+			WdOperators.jsClick(element);
 		}
 	}
 
@@ -238,18 +234,18 @@ public class MksButton extends LegacyElementsActions {
 	 */
 	public void jsClick(String buttonText, int ofButtonTextOccurrence) {
 
-		button = getButton(buttonText, ofButtonTextOccurrence);
-		if (button == null)
+		element = getButton(buttonText, ofButtonTextOccurrence);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(buttonText, ofButtonTextOccurrence));
 		else {
-			WdOperators.jsClick(button);
+			WdOperators.jsClick(element);
 		}
 	}
 	
 
 	private String getExceptionMsg(String buttonTxt) {
 		return String.format("There is no button element found for the button locator %s with the button text %s",
-				buttonLocator.toString(), buttonTxt);
+				elementLocator.toString(), buttonTxt);
 	}
 	
 	private String getExceptionMsg(String buttonTxt, int textOccurrence) {
@@ -260,17 +256,17 @@ public class MksButton extends LegacyElementsActions {
 
 	@Override
 	public boolean isDisplayed() {
-		return isDisplayed(button);
+		return isDisplayed(element);
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return isEnabled(button);
+		return isEnabled(element);
 	}
 
 	@Override
 	public boolean isSelected() {
-		return isSelected(button);
+		return isSelected(element);
 	}
 
 	

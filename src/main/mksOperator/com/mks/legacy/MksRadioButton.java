@@ -23,9 +23,6 @@ import com.mks.utilizer.MksArray;
 
 public class MksRadioButton extends LegacyElementsActions {
 
-	protected By radiobuttonLocator = null;
-	protected WebElement radiobutton = null;
-	protected List<WebElement> radiobuttons = null;
 	protected int radiobuttonElementsFoundCount = 0;
 	protected String labelAttributeName = null;
 
@@ -36,8 +33,8 @@ public class MksRadioButton extends LegacyElementsActions {
 	 *                identify one or more elements in UI
 	 */
 	public MksRadioButton(By locator) {
-		radiobuttonLocator = locator;
-		radiobutton = Finder.find(radiobuttonLocator);
+		elementLocator = locator;
+		element = Finder.find(elementLocator);
 	}
 
 	/**
@@ -57,29 +54,29 @@ public class MksRadioButton extends LegacyElementsActions {
 			throw new InvalidAlgorithmParameterException(String.format(
 					"The attributeForRadioButtonLabels parameter spassed should have attribute type of radiobutton with the attribute value as same as the label of radiobutton. Else avoid this called constructor and use the alternative constructor."));
 		labelAttributeName = attributeForRadioButtonLabels;
-		radiobuttonLocator = locator;
-		radiobutton = Finder.find(radiobuttonLocator);
+		elementLocator = locator;
+		element = Finder.find(elementLocator);
 	}
 
 	/**
 	 * Given radiobutton will be clicked
 	 */
 	public void click() {
-		radiobutton.click();
+		element.click();
 	}
 
 	/**
 	 * Given radiobutton will be clicked with JavaScriptExecutor
 	 */
 	public void jsClick() {
-		WdOperators.jsClick(radiobutton);
+		WdOperators.jsClick(element);
 	}
 
 	/**
 	 * Given radiobutton will be mouse left clicked
 	 */
 	public void leftClick() {
-		WdOperators.clickOnLocation(radiobutton, 0, 0);
+		WdOperators.clickOnLocation(element, 0, 0);
 	}
 
 	/**
@@ -104,7 +101,7 @@ public class MksRadioButton extends LegacyElementsActions {
 	public void click(int clickableElementPosition) {
 
 		List<Integer> lst = validateRadioButtonsGivenPositionExistance(clickableElementPosition);
-		clickOnElementsBasedOnPositions(ClickTypes.SimpleClick, radiobuttons, lst);
+		clickOnElementsBasedOnPositions(ClickTypes.SimpleClick, elements, lst);
 	}
 
 	/**
@@ -165,7 +162,7 @@ public class MksRadioButton extends LegacyElementsActions {
 	public void jsClick(int clickableElementPosition) {
 
 		List<Integer> lst = validateRadioButtonsGivenPositionExistance(clickableElementPosition);
-		clickOnElementsBasedOnPositions(ClickTypes.JsClick, radiobuttons, lst);
+		clickOnElementsBasedOnPositions(ClickTypes.JsClick, elements, lst);
 	}
 
 	/**
@@ -230,7 +227,7 @@ public class MksRadioButton extends LegacyElementsActions {
 	public void leftClick(int clickableElementPosition) {
 
 		List<Integer> lst = validateRadioButtonsGivenPositionExistance(clickableElementPosition);
-		clickOnElementsBasedOnPositions(ClickTypes.MouseLeftClick, radiobuttons, lst);
+		clickOnElementsBasedOnPositions(ClickTypes.MouseLeftClick, elements, lst);
 	}
 
 	/**
@@ -283,16 +280,16 @@ public class MksRadioButton extends LegacyElementsActions {
 	 *         true.
 	 */
 	public boolean select() {
-		if (!radiobutton.isSelected()) {
+		if (!element.isSelected()) {
 			click();
 		}
-		if (!radiobutton.isSelected()) {
+		if (!element.isSelected()) {
 			jsClick();
 		}
-		if (!radiobutton.isSelected()) {
+		if (!element.isSelected()) {
 			leftClick();
 		}
-		return radiobutton.isSelected();
+		return element.isSelected();
 	}
 
 	/**
@@ -334,10 +331,10 @@ public class MksRadioButton extends LegacyElementsActions {
 
 		List<Integer> positions = validateRadioButtonsGivenPositionExistance(selectableRadioButtonPosition);
 		int count = 0;
-		for (WebElement radioBtn : radiobuttons) {
+		for (WebElement radioBtn : elements) {
 			count++;
 			if (positions.contains(count)) {
-				radiobutton = radioBtn;
+				element = radioBtn;
 				if (select())
 					return true;
 			}
@@ -366,10 +363,10 @@ public class MksRadioButton extends LegacyElementsActions {
 		validateMoreRadioButtonsFound();
 		int count = 0;
 		boolean selected = false;
-		for (WebElement radioBtn : radiobuttons) {
+		for (WebElement radioBtn : elements) {
 			count++;
 			if (positions.contains(count)) {
-				radiobutton = radioBtn;
+				element = radioBtn;
 				if (select()) {
 					selected = true;
 					break;
@@ -377,13 +374,13 @@ public class MksRadioButton extends LegacyElementsActions {
 			}
 		}
 		if (selected) {
-			for (int i = 0; i < radiobuttons.size(); i++) {
+			for (int i = 0; i < elements.size(); i++) {
 				if ((i + 1) != count) {
-					radiobutton = radiobuttons.get(i);
+					element = elements.get(i);
 					if (isSelected())
 						throw new ElementNotSelectableException(String.format(
 								"Once after selecting the radio button at the position %s, still found other radio button from the group are in selected state at the position %s, and the given group locator is %s",
-								selectableRadioButtonPosition, (i + 1), radiobuttonLocator.toString()));
+								selectableRadioButtonPosition, (i + 1), elementLocator.toString()));
 				}
 			}
 		}
@@ -437,7 +434,7 @@ public class MksRadioButton extends LegacyElementsActions {
 		Map<WebElement, String> validRadioButtonsForLabel = validateRadioButtonsForGivenLabelAtttribure();
 		for (WebElement rdobtn : validRadioButtonsForLabel.keySet()) {
 			if (radiobuttonLabel.equals(validRadioButtonsForLabel.get(rdobtn))) {
-				radiobutton = rdobtn;
+				element = rdobtn;
 				return select();
 			}
 		}
@@ -469,19 +466,19 @@ public class MksRadioButton extends LegacyElementsActions {
 		boolean selected = false;
 		for (WebElement rdobtn : validRadioButtonsForLabel.keySet()) {
 			if (radiobuttonLabel.equals(validRadioButtonsForLabel.get(rdobtn))) {
-				radiobutton = rdobtn;
+				element = rdobtn;
 				selected = select();
 			}
 		}
 		if (selected) {
 			for (WebElement rdobtn : validRadioButtonsForLabel.keySet()) {
 				if (!(radiobuttonLabel.equals(validRadioButtonsForLabel.get(rdobtn)))) {
-					radiobutton = rdobtn;
+					element = rdobtn;
 					if (isSelected())
 						throw new ElementNotSelectableException(String.format(
 								"Once after selecting the radio button with the label %s, still found other radio button from the group is in selected state and the label of that is %s, where the given group locator is %s",
 								radiobuttonLabel, validRadioButtonsForLabel.get(rdobtn),
-								radiobuttonLocator.toString()));
+								elementLocator.toString()));
 				}
 			}
 		}
@@ -559,7 +556,7 @@ public class MksRadioButton extends LegacyElementsActions {
 
 	@Override
 	public boolean isSelected() {
-		if (!radiobutton.isSelected())
+		if (!element.isSelected())
 			return false;
 		return true;
 	}
@@ -567,7 +564,7 @@ public class MksRadioButton extends LegacyElementsActions {
 	@Override
 	public boolean isDisplayed() {
 		try {
-			if (radiobutton.isDisplayed())
+			if (element.isDisplayed())
 				return true;
 		} catch (StaleElementReferenceException e) {
 			e.printStackTrace();
@@ -578,7 +575,7 @@ public class MksRadioButton extends LegacyElementsActions {
 
 	@Override
 	public boolean isEnabled() {
-		if (!radiobutton.isEnabled())
+		if (!element.isEnabled())
 			return false;
 		return true;
 	}
@@ -591,13 +588,13 @@ public class MksRadioButton extends LegacyElementsActions {
 	 * @return
 	 */
 	private List<Integer> validateRadioButtonsGivenPositionExistance(int... clickableElementsPositions) {
-		radiobuttons = Finder.findAll(radiobuttonLocator);
+		elements = Finder.findAll(elementLocator);
 		int maxNum = MksArray.getLargest(clickableElementsPositions);
-		radiobuttonElementsFoundCount = radiobuttons.size();
+		radiobuttonElementsFoundCount = elements.size();
 		if (radiobuttonElementsFoundCount < maxNum)
 			throw new NoElementFoundException(String.format(
 					"Total %s radiobuttons found with the radiobuttons locator %s, and given input to select the radiobutton of occurrence is %s in the ui ",
-					radiobuttonElementsFoundCount, radiobuttonLocator.toString(), maxNum));
+					radiobuttonElementsFoundCount, elementLocator.toString(), maxNum));
 		return MksArray.getArraysAsList(clickableElementsPositions);
 	}
 
@@ -609,11 +606,11 @@ public class MksRadioButton extends LegacyElementsActions {
 	 * @throws AttributeNotFoundException
 	 */
 	private Map<WebElement, String> validateRadioButtonsForGivenLabelAtttribure() throws AttributeNotFoundException {
-		radiobuttons = Finder.findAll(radiobuttonLocator);
+		elements = Finder.findAll(elementLocator);
 		Map<WebElement, String> validRadioButtonsForLabel = new HashMap<>();
 		String attVal = "";
 
-		for (WebElement rdobtn : radiobuttons) {
+		for (WebElement rdobtn : elements) {
 			attVal = rdobtn.getAttribute(labelAttributeName);
 			if (!(attVal == null))
 				validRadioButtonsForLabel.put(rdobtn, attVal);
@@ -622,17 +619,17 @@ public class MksRadioButton extends LegacyElementsActions {
 		if (validRadioButtonsForLabel.size() < 1) {
 			throw new AttributeNotFoundException(String.format(
 					"Given locator is %s, and the attribute provided is %s, So did not find the attribute value for given locators.",
-					radiobuttonLocator.toString(), labelAttributeName));
+					elementLocator.toString(), labelAttributeName));
 		}
 		return validRadioButtonsForLabel;
 	}
 
 	private void validateMoreRadioButtonsFound() throws InvalidAlgorithmParameterException {
-		radiobuttons = Finder.findAll(radiobuttonLocator);
-		if (radiobuttons.size() < 2) {
+		elements = Finder.findAll(elementLocator);
+		if (elements.size() < 2) {
 			throw new InvalidAlgorithmParameterException(String.format(
 					"Currently identified %s elements in the UI using %s locator. Alteast 2 elements should be identified to work on this action",
-					radiobuttons.size(), radiobuttonLocator));
+					elements.size(), elementLocator));
 		}
 	}
 

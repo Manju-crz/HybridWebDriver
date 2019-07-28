@@ -25,34 +25,30 @@ import com.mks.seluty.WdOperators;
 
 public class MksLink extends LegacyElementsActions {
 
-	private By linkLocator = null;
-	private WebElement link = null;
-	private List<WebElement> links = null;
-
 	public MksLink(By locator) {
-		linkLocator = locator;
-		link = Finder.find(linkLocator);
+		elementLocator = locator;
+		element = Finder.find(elementLocator);
 	}
 
 	/**
 	 * Given link will be clicked
 	 */
 	public void click() {
-		link.click();
+		element.click();
 	}
 
 	/**
 	 * Given link will be clicked with JavaScriptExecutor
 	 */
 	public void jsClick() {
-		WdOperators.jsClick(link);
+		WdOperators.jsClick(element);
 	}
 
 	/**
 	 * Given link will be mouse left clicked
 	 */
 	public void leftClick() {
-		WdOperators.clickOnLocation(link, 0, 0);
+		WdOperators.clickOnLocation(element, 0, 0);
 	}
 
 	/**
@@ -63,9 +59,9 @@ public class MksLink extends LegacyElementsActions {
 	 * @return If no link identified, then returns null.
 	 */
 	public WebElement getLink(String linkText) {
-		links = Finder.findAll(linkLocator);
-		System.out.println("All links are : " + links.size());
-		for (WebElement lnk : links) {
+		elements = Finder.findAll(elementLocator);
+		System.out.println("All links are : " + elements.size());
+		for (WebElement lnk : elements) {
 			//System.out.println("lnk.getText().trim() : " + lnk.getText().trim());
 			if (lnk.getText().trim().equals(linkText)) {
 				return lnk;
@@ -80,7 +76,7 @@ public class MksLink extends LegacyElementsActions {
 	 * @return
 	 */
 	public String getLinkText() {
-		return WdOperators.getText(link);
+		return WdOperators.getText(element);
 	}
 
 	/**
@@ -90,7 +86,7 @@ public class MksLink extends LegacyElementsActions {
 	 */
 	public List<String> getAllLinksText() {
 
-		return WdOperators.getTextOfElements(Finder.findAll(linkLocator));
+		return WdOperators.getTextOfElements(Finder.findAll(elementLocator));
 	}
 
 	/**
@@ -113,9 +109,9 @@ public class MksLink extends LegacyElementsActions {
 			throw new InvalidArgumentException(String.format(
 					"The link text %s position should be greater than zero, on which tried to perform action. Currently given position occurrence is %s",
 					linkText, ofLinkTextOccurrence));
-		links = Finder.findAll(linkLocator);
+		elements = Finder.findAll(elementLocator);
 		int count = 0;
-		for (WebElement lnk : links) {
+		for (WebElement lnk : elements) {
 			if (lnk.getText().trim().equals(linkText)) {
 				count++;
 				if (count == ofLinkTextOccurrence) {
@@ -138,11 +134,11 @@ public class MksLink extends LegacyElementsActions {
 	 */
 	public void click(String linkText) {
 
-		link = getLink(linkText);
-		if (link == null)
+		element = getLink(linkText);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(linkText));
 		else {
-			link.click();
+			element.click();
 		}
 
 	}
@@ -163,11 +159,11 @@ public class MksLink extends LegacyElementsActions {
 	 *         returns false.
 	 */
 	public void click(String linkText, int ofLinkTextOccurrence) {
-		link = getLink(linkText, ofLinkTextOccurrence);
-		if (link == null)
+		element = getLink(linkText, ofLinkTextOccurrence);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(linkText, ofLinkTextOccurrence));
 		else {
-			link.click();
+			element.click();
 		}
 	}
 
@@ -183,11 +179,11 @@ public class MksLink extends LegacyElementsActions {
 	 */
 	public void leftClick(String linkText) {
 
-		link = getLink(linkText);
-		if (link == null)
+		element = getLink(linkText);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(linkText));
 		else {
-			WdOperators.clickOnLocation(link, 0, 0);
+			WdOperators.clickOnLocation(element, 0, 0);
 		}
 	}
 
@@ -208,11 +204,11 @@ public class MksLink extends LegacyElementsActions {
 	 */
 	public void leftClick(String linkText, int ofLinkTextOccurrence) {
 
-		link = getLink(linkText, ofLinkTextOccurrence);
-		if (link == null)
+		element = getLink(linkText, ofLinkTextOccurrence);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(linkText, ofLinkTextOccurrence));
 		else {
-			WdOperators.clickOnLocation(link, 0, 0);
+			WdOperators.clickOnLocation(element, 0, 0);
 		}
 	}
 
@@ -227,11 +223,11 @@ public class MksLink extends LegacyElementsActions {
 	 */
 	public void jsClick(String linkText) {
 
-		link = getLink(linkText);
-		if (link == null)
+		element = getLink(linkText);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(linkText));
 		else {
-			WdOperators.jsClick(link);
+			WdOperators.jsClick(element);
 		}
 	}
 
@@ -252,11 +248,11 @@ public class MksLink extends LegacyElementsActions {
 	 */
 	public void jsClick(String linkText, int ofLinkTextOccurrence) {
 
-		link = getLink(linkText, ofLinkTextOccurrence);
-		if (link == null)
+		element = getLink(linkText, ofLinkTextOccurrence);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(linkText, ofLinkTextOccurrence));
 		else {
-			WdOperators.jsClick(link);
+			WdOperators.jsClick(element);
 		}
 	}
 
@@ -268,12 +264,12 @@ public class MksLink extends LegacyElementsActions {
 	 *                                    throw exception.
 	 */
 	public String getHrefLink() throws InvalidAttributesException {
-		if (link.getTagName().equals("a"))
-			return link.getAttribute("href");
+		if (element.getTagName().equals("a"))
+			return element.getAttribute("href");
 		else
 			throw new InvalidAttributesException(String.format(
 					"Given link locator should end with anchor tag a, inorder to identify the value of href attribute. Currently given link locator is %s",
-					linkLocator.toString()));
+					elementLocator.toString()));
 	}
 
 	/**
@@ -290,7 +286,7 @@ public class MksLink extends LegacyElementsActions {
 		if (hrefLink == null)
 			throw new LinkException(String.format(
 					"There is no href link found for the given locator %s, and so returned href with NULL",
-					linkLocator.toString()));
+					elementLocator.toString()));
 		String str = ArmWindows.openNewTab();
 		Connection.getDriver().get(hrefLink);
 		return str;
@@ -309,14 +305,14 @@ public class MksLink extends LegacyElementsActions {
 	 * @return
 	 */
 	public String openInNewTab(String linkText, int ofLinkTextOccurrence) throws InvalidAttributesException, LinkException {
-		link = getLink(linkText, ofLinkTextOccurrence);
-		if(link == null)
-			throw new NoElementFoundException(String.format("Did not find the link with text %s, for the given locator %s and wit the link text position %s", linkText, linkLocator.toString(), ofLinkTextOccurrence));
+		element = getLink(linkText, ofLinkTextOccurrence);
+		if(element == null)
+			throw new NoElementFoundException(String.format("Did not find the link with text %s, for the given locator %s and wit the link text position %s", linkText, elementLocator.toString(), ofLinkTextOccurrence));
 		String hrefLink = getHrefLink();
 		if (hrefLink == null)
 			throw new LinkException(String.format(
 					"There is no href link found for the given locator %s, and so returned href with NULL",
-					linkLocator.toString()));
+					elementLocator.toString()));
 		String str = ArmWindows.openNewTab();
 		Connection.getDriver().get(hrefLink);
 		return str;
@@ -334,14 +330,14 @@ public class MksLink extends LegacyElementsActions {
 	 * @return Returns the window identification of last controlled one.
 	 */
 	public String openInNewTab(String linkText) throws InvalidAttributesException, LinkException {
-		link = getLink(linkText);
-		if(link == null)
-			throw new NoElementFoundException(String.format("Did not find the link with text %s, for the given locator %s", linkText, linkLocator.toString()));
+		element = getLink(linkText);
+		if(element == null)
+			throw new NoElementFoundException(String.format("Did not find the link with text %s, for the given locator %s", linkText, elementLocator.toString()));
 		String hrefLink = getHrefLink();
 		if (hrefLink == null)
 			throw new LinkException(String.format(
 					"There is no href link found for the given locator %s, and so returned href with NULL",
-					linkLocator.toString()));
+					elementLocator.toString()));
 		String str = ArmWindows.openNewTab();
 		Connection.getDriver().get(hrefLink);
 		return str;
@@ -349,7 +345,7 @@ public class MksLink extends LegacyElementsActions {
 	
 	private String getExceptionMsg(String linkTxt) {
 		return String.format("There is no link element found for the link locator %s with the link text %s",
-				linkLocator.toString(), linkTxt);
+				elementLocator.toString(), linkTxt);
 	}
 
 	private String getExceptionMsg(String linkTxt, int textOccurrence) {
@@ -358,17 +354,17 @@ public class MksLink extends LegacyElementsActions {
 
 	@Override
 	public boolean isDisplayed() {
-		return isDisplayed(link);
+		return isDisplayed(element);
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return isEnabled(link);
+		return isEnabled(element);
 	}
 
 	@Override
 	public boolean isSelected() {
-		return isSelected(link);
+		return isSelected(element);
 	}
 
 }

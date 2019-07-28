@@ -26,9 +26,6 @@ import com.mks.utilizer.SoftSleeper;
 
 public class MksCheckbox extends LegacyElementsActions {
 
-	protected By checkboxLocator = null;
-	protected WebElement checkbox = null;
-	protected List<WebElement> checkboxes = null;
 	protected int checkboxElementsFoundCount = 0;
 	protected String labelAttributeName = null;
 
@@ -39,8 +36,8 @@ public class MksCheckbox extends LegacyElementsActions {
 	 *                identify one or more elements in UI
 	 */
 	public MksCheckbox(By locator) {
-		checkboxLocator = locator;
-		checkbox = Finder.find(checkboxLocator);
+		elementLocator = locator;
+		element = Finder.find(elementLocator);
 	}
 
 	/**
@@ -59,29 +56,29 @@ public class MksCheckbox extends LegacyElementsActions {
 			throw new InvalidAlgorithmParameterException(String.format(
 					"The attributeForCheckboxLabels parameter spassed should have attribute type of checkbox with the attribute value as same as the label of checkbox. Else avoid this called constructor and use the alternative constructor."));
 		labelAttributeName = attributeForCheckboxLabels;
-		checkboxLocator = locator;
-		checkbox = Finder.find(checkboxLocator);
+		elementLocator = locator;
+		element = Finder.find(elementLocator);
 	}
 
 	/**
 	 * Given checkbox will be clicked
 	 */
 	public void click() {
-		checkbox.click();
+		element.click();
 	}
 
 	/**
 	 * Given checkbox will be clicked with JavaScriptExecutor
 	 */
 	public void jsClick() {
-		WdOperators.jsClick(checkbox);
+		WdOperators.jsClick(element);
 	}
 
 	/**
 	 * Given checkbox will be mouse left clicked
 	 */
 	public void leftClick() {
-		WdOperators.clickOnLocation(checkbox, 0, 0);
+		WdOperators.clickOnLocation(element, 0, 0);
 	}
 
 	/**
@@ -92,7 +89,7 @@ public class MksCheckbox extends LegacyElementsActions {
 	public void click(int... clickableElementsPositions) {
 
 		List<Integer> lst = validateCheckboxesGivenPositionExistance(clickableElementsPositions);
-		clickOnElementsBasedOnPositions(ClickTypes.SimpleClick, checkboxes, lst);
+		clickOnElementsBasedOnPositions(ClickTypes.SimpleClick, elements, lst);
 	}
 
 	/**
@@ -128,7 +125,7 @@ public class MksCheckbox extends LegacyElementsActions {
 	 */
 	public void jsClick(int... clickableElementsPositions) {
 		List<Integer> lst = validateCheckboxesGivenPositionExistance(clickableElementsPositions);
-		clickOnElementsBasedOnPositions(ClickTypes.JsClick, checkboxes, lst);
+		clickOnElementsBasedOnPositions(ClickTypes.JsClick, elements, lst);
 	}
 
 	/**
@@ -164,7 +161,7 @@ public class MksCheckbox extends LegacyElementsActions {
 	 */
 	public void leftClick(int... clickableElementsPositions) {
 		List<Integer> lst = validateCheckboxesGivenPositionExistance(clickableElementsPositions);
-		clickOnElementsBasedOnPositions(ClickTypes.MouseLeftClick, checkboxes, lst);
+		clickOnElementsBasedOnPositions(ClickTypes.MouseLeftClick, elements, lst);
 	}
 
 	/**
@@ -203,16 +200,16 @@ public class MksCheckbox extends LegacyElementsActions {
 	 *         true.
 	 */
 	public boolean select() {
-		if (!checkbox.isSelected()) {
+		if (!element.isSelected()) {
 			click();
 		}
-		if (!checkbox.isSelected()) {
+		if (!element.isSelected()) {
 			jsClick();
 		}
-		if (!checkbox.isSelected()) {
+		if (!element.isSelected()) {
 			leftClick();
 		}
-		return checkbox.isSelected();
+		return element.isSelected();
 	}
 
 	/**
@@ -233,10 +230,10 @@ public class MksCheckbox extends LegacyElementsActions {
 		List<Integer> positions = validateCheckboxesGivenPositionExistance(selectableCheckboxesPositions);
 		List<Integer> nonSelectedPositions = new ArrayList<>();
 		int count = 0;
-		for (WebElement checkbx : checkboxes) {
+		for (WebElement checkbx : elements) {
 			count++;
 			if (positions.contains(count)) {
-				checkbox = checkbx;
+				element = checkbx;
 				if (!select())
 					nonSelectedPositions.add(count);
 			}
@@ -268,7 +265,7 @@ public class MksCheckbox extends LegacyElementsActions {
 			boolean selected = false;
 			for (WebElement chkbox : validCheckBoxesForLabel.keySet()) {
 				if (label.equals(validCheckBoxesForLabel.get(chkbox))) {
-					checkbox = chkbox;
+					element = chkbox;
 					selected = select();
 					break;
 				}
@@ -289,16 +286,16 @@ public class MksCheckbox extends LegacyElementsActions {
 	 *         returns true.
 	 */
 	public boolean unSelect() {
-		if (checkbox.isSelected()) {
+		if (element.isSelected()) {
 			click();
 		}
-		if (checkbox.isSelected()) {
+		if (element.isSelected()) {
 			jsClick();
 		}
-		if (checkbox.isSelected()) {
+		if (element.isSelected()) {
 			leftClick();
 		}
-		if(checkbox.isSelected())
+		if(element.isSelected())
 			return false;
 		return true;
 	}
@@ -321,10 +318,10 @@ public class MksCheckbox extends LegacyElementsActions {
 		List<Integer> positions = validateCheckboxesGivenPositionExistance(selectableCheckboxesPositions);
 		List<Integer> nonSelectedPositions = new ArrayList<>();
 		int count = 0;
-		for (WebElement checkbx : checkboxes) {
+		for (WebElement checkbx : elements) {
 			count++;
 			if (positions.contains(count)) {
-				checkbox = checkbx;
+				element = checkbx;
 				if (!unSelect())
 					nonSelectedPositions.add(count);
 			}
@@ -356,7 +353,7 @@ public class MksCheckbox extends LegacyElementsActions {
 			boolean selected = false;
 			for (WebElement chkbox : validCheckBoxesForLabel.keySet()) {
 				if (label.equals(validCheckBoxesForLabel.get(chkbox))) {
-					checkbox = chkbox;
+					element = chkbox;
 					selected = unSelect();
 					break;
 				}
@@ -371,17 +368,17 @@ public class MksCheckbox extends LegacyElementsActions {
 
 	@Override
 	public boolean isDisplayed() {
-		return isDisplayed(checkbox);
+		return isDisplayed(element);
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return isEnabled(checkbox);
+		return isEnabled(element);
 	}
 
 	@Override
 	public boolean isSelected() {
-		return isSelected(checkbox);
+		return isSelected(element);
 	}
 
 	/**
@@ -392,13 +389,13 @@ public class MksCheckbox extends LegacyElementsActions {
 	 * @return
 	 */
 	private List<Integer> validateCheckboxesGivenPositionExistance(int... clickableElementsPositions) {
-		checkboxes = Finder.findAll(checkboxLocator);
+		elements = Finder.findAll(elementLocator);
 		int maxNum = MksArray.getLargest(clickableElementsPositions);
-		checkboxElementsFoundCount = checkboxes.size();
+		checkboxElementsFoundCount = elements.size();
 		if (checkboxElementsFoundCount < maxNum)
 			throw new NoElementFoundException(String.format(
 					"Total %s checkboxes found with the checkboxes locator %s, and given input to select the checkbox of occurrence is %s in the ui ",
-					checkboxElementsFoundCount, checkboxLocator.toString(), maxNum));
+					checkboxElementsFoundCount, elementLocator.toString(), maxNum));
 		return MksArray.getArraysAsList(clickableElementsPositions);
 	}
 
@@ -410,11 +407,11 @@ public class MksCheckbox extends LegacyElementsActions {
 	 * @throws AttributeNotFoundException
 	 */
 	private Map<WebElement, String> validateCheckboxesForGivenLabelAtttribure() throws AttributeNotFoundException {
-		checkboxes = Finder.findAll(checkboxLocator);
+		elements = Finder.findAll(elementLocator);
 		Map<WebElement, String> validCheckBoxesForLabel = new HashMap<>();
 		String attVal = "";
 
-		for (WebElement chkbx : checkboxes) {
+		for (WebElement chkbx : elements) {
 			attVal = chkbx.getAttribute(labelAttributeName);
 			if (!(attVal == null))
 				validCheckBoxesForLabel.put(chkbx, attVal);
@@ -423,7 +420,7 @@ public class MksCheckbox extends LegacyElementsActions {
 		if (validCheckBoxesForLabel.size() < 1) {
 			throw new AttributeNotFoundException(String.format(
 					"Given locator is %s, and the attribute provided is %s, So did not find the attribute value for given locators.",
-					checkboxLocator.toString(), labelAttributeName));
+					elementLocator.toString(), labelAttributeName));
 		}
 		return validCheckBoxesForLabel;
 	}

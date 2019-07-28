@@ -3,6 +3,9 @@ package com.mks.advanced;
 import java.security.spec.InvalidParameterSpecException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.management.AttributeNotFoundException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidArgumentException;
@@ -15,9 +18,9 @@ import com.mks.seluty.Finder;
 import com.mks.seluty.WdOperators;
 import com.mks.utilizer.SoftSleeper;
 
-public class MksAdvCheckbox extends MksCheckbox{
+public class MksCheckboxAdv extends MksCheckbox{
 
-	private MksAdvCheckbox(By locator) {
+	private MksCheckboxAdv(By locator) {
 		super(locator);
 	}
 	
@@ -26,14 +29,14 @@ public class MksAdvCheckbox extends MksCheckbox{
 	private List<WebElement> checkboxLabels = null;
 	private int elementsSize = 0;
 	
-	public MksAdvCheckbox(By checkBoxesLocator, By associatedLabelsLocator) throws InvalidParameterSpecException {
+	public MksCheckboxAdv(By checkBoxesLocator, By associatedLabelsLocator) throws InvalidParameterSpecException {
 		super(checkBoxesLocator);
 		checkboxLabelsLocator = associatedLabelsLocator;
 		checkboxLabel = Finder.find(associatedLabelsLocator);
 		checkboxLabels = Finder.findAll(associatedLabelsLocator);
-		checkboxes = Finder.findAll(checkboxLocator);
-		elementsSize = checkboxLabels.size();
-		int labelsSize = checkboxes.size();
+		elements = Finder.findAll(elementLocator);
+		elementsSize = elements.size();
+		int labelsSize = checkboxLabels.size();
 		if(!(labelsSize == elementsSize))
 			throw new ElementsCountMisMatchException(checkBoxesLocator, "checkBoxesLocator", elementsSize, associatedLabelsLocator, "associatedLabelsLocator", labelsSize);
 	}
@@ -49,7 +52,7 @@ public class MksAdvCheckbox extends MksCheckbox{
 		for(int i=0; i<elementsSize; i++) {
 			if(checkboxLabels.get(i).getText().trim().equals(checkboxText.trim()))
 			{
-				return checkboxes.get(i);
+				return elements.get(i);
 			}
 		}
 		return null;
@@ -59,7 +62,7 @@ public class MksAdvCheckbox extends MksCheckbox{
 	 * Helps to get the text of all checkboxs
 	 * @return
 	 */
-	public List<String> getAllCheckboxsText() {
+	public List<String> getAllCheckboxesText() {
 		
 		return WdOperators.getTextOfElements(Finder.findAll(checkboxLabelsLocator));
 	}
@@ -87,7 +90,7 @@ public class MksAdvCheckbox extends MksCheckbox{
 			if (label.getText().trim().equals(checkboxText.trim())) {
 				count ++;
 				if (count == ofCheckboxTextOccurrence) {
-					return checkboxes.get(loopCount);
+					return elements.get(loopCount);
 				}
 			}
 			loopCount++;
@@ -106,37 +109,12 @@ public class MksAdvCheckbox extends MksCheckbox{
 	 */
 	public void click(String checkboxText) {
 
-		checkbox = getCheckbox(checkboxText);
-		if (checkbox == null)
+		element = getCheckbox(checkboxText);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(checkboxText));
 		else {
-			checkbox.click();
+			element.click();
 		}
-	}
-
-	/**
-	 * Helps to click on the checkbox, based on checkbox text given. If more than one checkbox
-	 * is existing in DOM with same checkbox text, then it clicks on first occurrence
-	 * element by default.
-	 * 
-	 * @param checkboxesTextToClick
-	 *            The checkbox text of the UI should exactly match - case sensitive.
-	 * @return If found and clicked, then returns true. Else returns false.
-	 */
-	public List<String> click(String... checkboxesTextToClick) {
-		
-		List<String> nonFoundCheckboxes = new ArrayList<>();
-		for(String checkboxText : checkboxesTextToClick)
-		{
-			checkbox = getCheckbox(checkboxText);
-			if (checkbox == null)
-				nonFoundCheckboxes.add(checkboxText);
-			else {
-				checkbox.click();
-				SoftSleeper.milliseconds(100);
-			}
-		}
-		return nonFoundCheckboxes;
 	}
 	
 	/**
@@ -155,11 +133,11 @@ public class MksAdvCheckbox extends MksCheckbox{
 	 *         returns false.
 	 */
 	public void click(String checkboxText, int ofCheckboxTextOccurrence) {
-		checkbox = getCheckbox(checkboxText, ofCheckboxTextOccurrence);
-		if (checkbox == null)
+		element = getCheckbox(checkboxText, ofCheckboxTextOccurrence);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(checkboxText, ofCheckboxTextOccurrence));
 		else {
-			checkbox.click();
+			element.click();
 		}
 	}
 
@@ -175,11 +153,11 @@ public class MksAdvCheckbox extends MksCheckbox{
 	 */
 	public void leftClick(String checkboxText) {
 
-		checkbox = getCheckbox(checkboxText);
-		if (checkbox == null)
+		element = getCheckbox(checkboxText);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(checkboxText));
 		else {
-			WdOperators.clickOnLocation(checkbox, 0, 0);
+			WdOperators.clickOnLocation(element, 0, 0);
 		}
 	}
 
@@ -200,11 +178,11 @@ public class MksAdvCheckbox extends MksCheckbox{
 	 */
 	public void leftClick(String checkboxText, int ofCheckboxTextOccurrence) {
 
-		checkbox = getCheckbox(checkboxText, ofCheckboxTextOccurrence);
-		if (checkbox == null)
+		element = getCheckbox(checkboxText, ofCheckboxTextOccurrence);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(checkboxText, ofCheckboxTextOccurrence));
 		else {
-			WdOperators.clickOnLocation(checkbox, 0, 0);
+			WdOperators.clickOnLocation(element, 0, 0);
 		}
 	}
 	
@@ -220,11 +198,11 @@ public class MksAdvCheckbox extends MksCheckbox{
 	 */
 	public void jsClick(String checkboxText) {
 
-		checkbox = getCheckbox(checkboxText);
-		if (checkbox == null)
+		element = getCheckbox(checkboxText);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(checkboxText));
 		else {
-			WdOperators.jsClick(checkbox);
+			WdOperators.jsClick(element);
 		}
 	}
 	
@@ -245,23 +223,22 @@ public class MksAdvCheckbox extends MksCheckbox{
 	 */
 	public void jsClick(String checkboxText, int ofCheckboxTextOccurrence) {
 		
-		checkbox = getCheckbox(checkboxText, ofCheckboxTextOccurrence);
-		if (checkbox == null)
+		element = getCheckbox(checkboxText, ofCheckboxTextOccurrence);
+		if (element == null)
 			throw new NoElementFoundException(getExceptionMsg(checkboxText, ofCheckboxTextOccurrence));
 		else {
-			WdOperators.jsClick(checkbox);
+			WdOperators.jsClick(element);
 		}
 	}
 	
 	private String getExceptionMsg(String labelText) {
 		return String.format("There is no checkbox element found with the checkbox locator %s and the check box labes locators %s having a label text %s",
-				checkboxLocator.toString(), checkboxLabelsLocator.toString(), labelText);
+				elementLocator.toString(), checkboxLabelsLocator.toString(), labelText);
 	}
 	
 	private String getExceptionMsg(String labelText, int textOccurrence) {
 		return String.format("%s, with the occcurrence of text at position %s",
 				getExceptionMsg(labelText), textOccurrence);
 	}
-	
 	
 }

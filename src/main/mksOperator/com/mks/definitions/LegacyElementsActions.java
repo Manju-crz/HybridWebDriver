@@ -2,6 +2,7 @@ package com.mks.definitions;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
@@ -9,6 +10,9 @@ import com.mks.seluty.WdOperators;
 
 public abstract class LegacyElementsActions implements LegacyElements{
 	
+	protected WebElement element = null;
+	protected By elementLocator = null;
+	protected List<WebElement> elements = null;
 	
 	protected void clickOnElementsBasedOnPositions(ClickTypes type, List<WebElement> elements, List<Integer> positions) {
 		
@@ -89,6 +93,66 @@ public abstract class LegacyElementsActions implements LegacyElements{
 		if (!element.isEnabled())
 			return false;
 		return true;
+	}
+
+	
+	public boolean isSelected() {
+		if (!element.isSelected())
+			return false;
+		return true;
+	}
+
+	public boolean isDisplayed() {
+		try {
+			if (element.isDisplayed())
+				return true;
+		} catch (StaleElementReferenceException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+
+	public boolean isEnabled() {
+		if (!element.isEnabled())
+			return false;
+		return true;
+	}
+	
+	public void click() {
+		WdOperators.click(element);
+	}
+	
+	public void jsClick() {
+		WdOperators.jsClick(element);
+	}
+
+	public void leftClick() {
+		WdOperators.jsClick(element);
+	}
+
+	public void rightClick() {
+		WdOperators.jsClick(element);
+	}
+	
+	public void doubleClick() {
+		WdOperators.jsClick(element);
+	}
+	
+	public void moveCursorOn() {
+		
+	}
+	
+	public String getText() {
+		return element.getText();
+	}
+
+	public String getValue() {
+		return WdOperators.getValue(element);
+	}
+	
+	public void scrollPageDownTill() {
+		
 	}
 	
 }
